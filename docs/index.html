@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacy Policy — Segue</title>
+    <meta
+      name="description"
+      content="What the Segue Chrome extension does with your data. It has no server, no analytics, and sends nothing unless you configure an API key."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Public+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --surface: #ffffff;
+        --sunken: #f4f6fa;
+        --outline: #d8dce3;
+        --ink: #1a1c1f;
+        --ink-soft: #4a4f57;
+        --ink-faint: #6b7280;
+        --accent: #0b57d0;
+        --accent-soft: #e8effb;
+        --serif: 'Newsreader', Georgia, serif;
+        --sans: 'Public Sans', 'Segoe UI', system-ui, sans-serif;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          color-scheme: dark;
+          --surface: #17191c;
+          --sunken: #1f2226;
+          --outline: #31353b;
+          --ink: #e6e8ea;
+          --ink-soft: #b0b6bd;
+          --ink-faint: #8b929a;
+          --accent: #8fb4f5;
+          --accent-soft: #1b2740;
+        }
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        padding: clamp(28px, 6vw, 72px) clamp(20px, 5vw, 32px) 88px;
+        background: var(--surface);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 16px;
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .wrap {
+        max-width: 42rem;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+      }
+
+      header { display: flex; flex-direction: column; gap: 10px; }
+
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+      }
+
+      .eyebrow::before {
+        content: '';
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+
+      h1 {
+        margin: 0;
+        font-family: var(--serif);
+        font-size: clamp(32px, 6vw, 46px);
+        font-weight: 600;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        text-wrap: balance;
+      }
+
+      .updated { margin: 0; font-size: 14px; color: var(--ink-faint); }
+
+      .lede {
+        margin: 0;
+        font-size: 17px;
+        color: var(--ink-soft);
+      }
+
+      section { display: flex; flex-direction: column; gap: 14px; }
+
+      h2 {
+        margin: 0;
+        font-family: var(--serif);
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.25;
+        letter-spacing: -0.01em;
+      }
+
+      h3 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      p { margin: 0; }
+
+      a { color: var(--accent); text-underline-offset: 3px; word-break: break-word; }
+
+      strong { font-weight: 600; }
+
+      .callout {
+        padding: 18px 20px;
+        background: var(--sunken);
+        border-left: 3px solid var(--accent);
+        border-radius: 0 10px 10px 0;
+      }
+
+      .table-scroll { overflow-x: auto; }
+
+      table {
+        width: 100%;
+        min-width: 26rem;
+        border-collapse: collapse;
+        font-size: 15px;
+      }
+
+      th, td {
+        text-align: left;
+        vertical-align: top;
+        padding: 11px 16px 11px 0;
+        border-bottom: 1px solid var(--outline);
+      }
+
+      th {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+      }
+
+      td:first-child { font-weight: 500; padding-right: 24px; white-space: nowrap; }
+      td:last-child { color: var(--ink-soft); padding-right: 0; }
+      td code { white-space: nowrap; }
+
+      code {
+        padding: 1px 6px;
+        background: var(--sunken);
+        border: 1px solid var(--outline);
+        border-radius: 5px;
+        font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+        font-size: 0.87em;
+      }
+
+      footer {
+        padding-top: 24px;
+        border-top: 1px solid var(--outline);
+        font-size: 14px;
+        color: var(--ink-faint);
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="eyebrow">Segue — Chrome extension</div>
+        <h1>Privacy Policy</h1>
+        <p class="updated">Last updated 8 September 2026</p>
+      </header>
+
+      <p class="lede">
+        Segue suggests transition words for the sentence you are writing. This policy describes
+        exactly what it does with your data. It is short because Segue does very little.
+      </p>
+
+      <section>
+        <h2>There is no Segue server</h2>
+        <p>
+          Segue has no backend. Nothing is sent to the developer, ever. There is no analytics, no
+          telemetry, no tracking, no advertising, and no sale or sharing of data with anyone.
+        </p>
+      </section>
+
+      <section>
+        <h2>What leaves your browser, and when</h2>
+        <div class="callout">
+          <p>
+            <strong>Only if you have entered a DeepSeek API key.</strong> With no key configured,
+            nothing leaves your browser at all — the built-in library of transition phrases works
+            entirely offline.
+          </p>
+        </div>
+        <p>
+          When a key is configured and you finish a sentence (or press the shortcut, or use the side
+          panel), Segue sends <strong>up to the last 900 characters of text before your cursor</strong>
+          to DeepSeek's API at <code>https://api.deepseek.com</code> so it can suggest a fitting
+          transition. That text is sent together with your API key, which authenticates the request.
+        </p>
+        <p>
+          Nothing else is transmitted. Segue does not send the rest of the document, the page URL,
+          the page contents, your identity, or any browsing history.
+        </p>
+        <p>
+          In Google Docs specifically, Google renders documents to a canvas rather than as page text,
+          so Segue cannot read the document at all. Instead it keeps a short in-memory record of what
+          you have typed during the current session in order to know your last sentence. That record
+          is never written to disk and is discarded when the tab closes.
+        </p>
+
+        <h3>DeepSeek is a third party</h3>
+        <p>
+          Text sent for suggestions is processed by DeepSeek under <strong>their</strong> terms and
+          privacy policy, not this one. Read them before entering a key:
+          <a href="https://platform.deepseek.com/downloads/DeepSeek%20Privacy%20Policy.html"
+            >DeepSeek Privacy Policy</a
+          >.
+        </p>
+        <p>
+          If you would rather no text ever left your machine, leave the key field empty. The library
+          still works.
+        </p>
+      </section>
+
+      <section>
+        <h2>What is stored on your device</h2>
+        <p>
+          Stored in <code>chrome.storage.local</code>, which is local to your Chrome profile:
+        </p>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th scope="col">Item</th><th scope="col">Why</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>DeepSeek API key</td><td>To authenticate suggestion requests</td></tr>
+              <tr><td>Theme</td><td>Light, dark or system preference</td></tr>
+              <tr><td>Register</td><td>Plain, balanced or formal preference</td></tr>
+              <tr><td>Open rare tiers</td><td>Which phrase groups you have expanded</td></tr>
+              <tr><td>Pop-up setting</td><td>Whether suggestions appear when you finish a sentence</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout">
+          <p>
+            <strong>Your API key is stored unencrypted</strong>, which is the only storage Chrome
+            extensions have. Anyone with access to your Chrome profile can read it. Treat it as you
+            would a saved password on a shared computer, and revoke it from the DeepSeek dashboard if
+            that ever matters. Uninstalling Segue deletes everything above.
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Permissions, and why each is needed</h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th scope="col">Permission</th><th scope="col">Reason</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Site access</td>
+                <td>
+                  To read the text box you are typing in and insert your chosen phrase at the cursor.
+                  Text is only read from the field you are actively editing.
+                </td>
+              </tr>
+              <tr><td><code>storage</code></td><td>To keep your key and preferences on your device</td></tr>
+              <tr><td><code>tabs</code></td><td>So the side panel can address the tab you are writing in</td></tr>
+              <tr>
+                <td><code>scripting</code></td>
+                <td>To restore Segue in already-open tabs after it updates, without you refreshing them</td>
+              </tr>
+              <tr>
+                <td><code>clipboardWrite</code></td>
+                <td>Fallback: if a page refuses direct insertion, the phrase is copied so you can paste it</td>
+              </tr>
+              <tr>
+                <td><code>api.deepseek.com</code></td>
+                <td>The only network destination Segue can reach</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Segue loads no remote code. All code ships inside the extension package.</p>
+      </section>
+
+      <section>
+        <h2>Children</h2>
+        <p>
+          Segue is a writing tool for general audiences and is not directed at children under 13.
+        </p>
+      </section>
+
+      <section>
+        <h2>Changes</h2>
+        <p>
+          Material changes to this policy will be published on this page, with the date above
+          updated. The version history is public in the repository.
+        </p>
+      </section>
+
+      <footer>
+        <div>Contact: <a href="mailto:maxwell.olander@gmail.com">maxwell.olander@gmail.com</a></div>
+        <div>
+          Source:
+          <a href="https://github.com/sussyswimmer/segue-transitions"
+            >github.com/sussyswimmer/segue-transitions</a
+          >
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
