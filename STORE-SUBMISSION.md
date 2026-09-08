@@ -12,12 +12,13 @@ by you at <https://chrome.google.com/webstore/devconsole>. I can't pay it or cre
 account, and the store has no API for a first-time listing — the initial submission has
 to go through the dashboard by hand.
 
-You also need a **publicly reachable privacy policy URL**. `PRIVACY.md` in this repo is
-the text, but the repo is private, so its URL won't resolve for reviewers. Pick one:
+**Privacy policy URL — done.** It is live and publicly reachable at:
 
-- Flip this repo to public — then use the rendered `PRIVACY.md` URL
-- Paste the text into a **public GitHub Gist** and use that URL
-- Any other public page you control
+```
+https://sussyswimmer.github.io/segue-transitions/
+```
+
+Served from `docs/index.html` on GitHub Pages over HTTPS. Edit that file and push to update it.
 
 ---
 
@@ -137,7 +138,7 @@ Read these yourself before ticking — you are the one certifying them.
 | Icon | 128×128 PNG | ✅ `icons/128.png` |
 | Screenshot | 1280×800 or 640×400, at least one, up to five | ✅ in `store-assets/` |
 | Small promo tile | 440×280 | Optional |
-| Privacy policy URL | Publicly reachable | ⚠️ see above |
+| Privacy policy URL | Publicly reachable | ✅ https://sussyswimmer.github.io/segue-transitions/ |
 
 ---
 
