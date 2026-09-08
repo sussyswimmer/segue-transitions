@@ -1,0 +1,17 @@
+# Build output
+*.zip
+dist/
+store/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Editors
+.vscode/
+.idea/
+
+# Never commit a key
+.env
+.env.local
+secrets.json

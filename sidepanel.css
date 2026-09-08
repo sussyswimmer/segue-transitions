@@ -1,0 +1,712 @@
+/* Segue — styled to sit beside Google Docs: Material 3 surfaces, Google Sans,
+   Docs blue, 8px geometry. Light by default; dark is opt-in from Settings. */
+
+:root {
+  color-scheme: light;
+
+  /* Light — Docs default */
+  --surface: #ffffff;
+  --surface-container: #f0f4f9;
+  --surface-container-high: #e4e9f1;
+  --outline: #c4c7c5;
+  --outline-strong: #747775;
+  --on-surface: #1f1f1f;
+  --on-surface-variant: #444746;
+  --on-surface-faint: #5f6368;
+  --primary: #0b57d0;
+  --primary-container: #d3e3fd;
+  --on-primary-container: #041e49;
+  --on-primary: #ffffff;
+  --error: #b3261e;
+  --shadow: rgba(60, 64, 67, 0.24);
+
+  --sans: 'Google Sans', 'Google Sans Text', 'Product Sans', Roboto, 'Segoe UI', Arial, sans-serif;
+  --mono: 'Roboto Mono', 'Cascadia Mono', Consolas, ui-monospace, monospace;
+
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 24px;
+  --s6: 32px;
+
+  --radius-sm: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 100px;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Docs dark theme values, applied on explicit choice… */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --surface: #1b1b1b;
+  --surface-container: #282a2c;
+  --surface-container-high: #303134;
+  --outline: #444746;
+  --outline-strong: #8e918f;
+  --on-surface: #e3e3e3;
+  --on-surface-variant: #c4c7c5;
+  --on-surface-faint: #9aa0a6;
+  --primary: #a8c7fa;
+  --primary-container: #0842a0;
+  --on-primary-container: #d3e3fd;
+  --on-primary: #062e6f;
+  --error: #f2b8b5;
+  --shadow: rgba(0, 0, 0, 0.5);
+}
+
+/* …and on "Match system" when the OS is dark. */
+@media (prefers-color-scheme: dark) {
+  :root[data-theme='system'] {
+    color-scheme: dark;
+    --surface: #1b1b1b;
+    --surface-container: #282a2c;
+    --surface-container-high: #303134;
+    --outline: #444746;
+    --outline-strong: #8e918f;
+    --on-surface: #e3e3e3;
+    --on-surface-variant: #c4c7c5;
+    --on-surface-faint: #9aa0a6;
+    --primary: #a8c7fa;
+    --primary-container: #0842a0;
+    --on-primary-container: #d3e3fd;
+    --on-primary: #062e6f;
+    --error: #f2b8b5;
+    --shadow: rgba(0, 0, 0, 0.5);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0 var(--s4) var(--s6);
+  background: var(--surface);
+  color: var(--on-surface);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ------------------------------------------------------------- masthead */
+
+.masthead {
+  padding: var(--s4) 0 var(--s3);
+  border-bottom: 1px solid var(--outline);
+}
+
+.wordmark {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--on-surface);
+}
+
+.wordmark::after {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-left: var(--s2);
+  border-radius: 50%;
+  background: var(--primary);
+  vertical-align: 0.35em;
+}
+
+.tagline {
+  margin: var(--s1) 0 0;
+  font-size: 12px;
+  color: var(--on-surface-variant);
+  max-width: 40ch;
+  text-wrap: balance;
+}
+
+/* ------------------------------------------------------- section furniture */
+
+.strip-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3);
+  margin-bottom: var(--s2);
+  min-height: 24px;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--on-surface-variant);
+}
+
+.eyebrow.accent {
+  color: var(--primary);
+}
+
+.field-name {
+  font-size: 11px;
+  color: var(--on-surface-faint);
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 55%;
+}
+
+/* ---------------------------------------------------------- reading strip */
+
+.reading {
+  padding: var(--s4) 0;
+}
+
+.excerpt {
+  margin: 0;
+  padding: var(--s3);
+  background: var(--surface-container);
+  border-radius: var(--radius-lg);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--on-surface-variant);
+  max-height: 6.5em;
+  overflow: hidden;
+}
+
+.excerpt.live {
+  color: var(--on-surface);
+}
+
+.excerpt .caret {
+  display: inline-block;
+  width: 1.5px;
+  height: 1em;
+  margin-left: 1px;
+  background: var(--primary);
+  vertical-align: -0.15em;
+  animation: blink 1.1s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  to {
+    opacity: 0;
+  }
+}
+
+/* Docs mode — the document can't be read, so the sentence is typed in here. */
+
+.docs-note {
+  margin: 0 0 var(--s2);
+}
+
+textarea {
+  width: 100%;
+  padding: var(--s3);
+  background: var(--surface);
+  border: 1px solid var(--outline-strong);
+  border-radius: var(--radius-sm);
+  color: var(--on-surface);
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+/* --------------------------------------------------------- fitted results */
+
+.fitted {
+  padding: 0 0 var(--s4);
+}
+
+.relation-read {
+  margin: 0 0 var(--s3);
+  font-size: 12px;
+  color: var(--on-surface-variant);
+}
+
+.relation-read b {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--primary);
+}
+
+.fitted-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s2);
+}
+
+.fitted-list li {
+  opacity: 0;
+  transform: translateY(4px);
+  animation: rise 280ms var(--ease) forwards;
+}
+
+@keyframes rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fit-btn {
+  width: 100%;
+  display: grid;
+  gap: 2px;
+  text-align: left;
+  padding: var(--s2) var(--s3);
+  min-height: 48px;
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-lg);
+  color: var(--on-surface);
+  font-family: var(--sans);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 120ms var(--ease), border-color 120ms var(--ease),
+    box-shadow 120ms var(--ease);
+}
+
+.fit-btn .phrase {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.fit-btn .why {
+  font-size: 12px;
+  color: var(--on-surface-variant);
+}
+
+.fit-btn:hover {
+  background: var(--surface-container);
+  border-color: var(--outline-strong);
+  box-shadow: 0 1px 2px var(--shadow);
+}
+
+.fit-btn:active {
+  background: var(--surface-container-high);
+  box-shadow: none;
+}
+
+/* ---------------------------------------------------------------- library */
+
+.library {
+  padding: var(--s4) 0 0;
+  border-top: 1px solid var(--outline);
+}
+
+/* Register — the floor for how formal the whole panel gets. */
+.register {
+  display: flex;
+  margin-bottom: var(--s3);
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.seg {
+  flex: 1;
+  min-height: 32px;
+  background: var(--surface);
+  border: 0;
+  border-right: 1px solid var(--outline);
+  color: var(--on-surface-variant);
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 120ms var(--ease), color 120ms var(--ease);
+}
+
+.seg:last-child {
+  border-right: 0;
+}
+
+.seg:hover {
+  background: var(--surface-container);
+}
+
+.seg.on {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+}
+
+/* Situation filters */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s1);
+  margin-bottom: var(--s2);
+}
+
+.filter {
+  padding: 0 10px;
+  min-height: 28px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  color: var(--on-surface-faint);
+  font-family: var(--sans);
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 120ms var(--ease), color 120ms var(--ease);
+}
+
+.filter:hover {
+  background: var(--surface-container);
+  color: var(--on-surface);
+}
+
+.filter.on {
+  background: var(--primary-container);
+  border-color: transparent;
+  color: var(--on-primary-container);
+  font-weight: 500;
+}
+
+.group {
+  padding: var(--s4) 0 var(--s3);
+}
+
+.group-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s2);
+  margin-bottom: 2px;
+}
+
+.group-name {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--on-surface);
+}
+
+.group-glyph {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+.rare-toggle {
+  margin-left: auto;
+  padding: 2px var(--s2);
+  background: none;
+  border: 0;
+  border-radius: var(--radius-pill);
+  color: var(--primary);
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 120ms var(--ease);
+}
+
+.rare-toggle:hover {
+  background: var(--surface-container);
+}
+
+.group-gloss {
+  margin: 0 0 var(--s3);
+  font-size: 12px;
+  color: var(--on-surface-faint);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+
+/* Material 3 assist chips */
+.chip {
+  padding: 0 var(--s3);
+  min-height: 32px;
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-sm);
+  color: var(--on-surface);
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.3;
+  cursor: pointer;
+  transition: background 120ms var(--ease), border-color 120ms var(--ease),
+    color 120ms var(--ease);
+}
+
+.chip:hover {
+  background: var(--surface-container);
+  border-color: var(--outline-strong);
+}
+
+.chip:active {
+  background: var(--surface-container-high);
+}
+
+.chip.rare {
+  border-style: dashed;
+  color: var(--on-surface-variant);
+}
+
+.chip.rare:hover {
+  color: var(--on-surface);
+}
+
+.chip.suggested {
+  background: var(--primary-container);
+  border-color: transparent;
+  color: var(--on-primary-container);
+}
+
+/* Already worn out in this passage — visible, but the eye skips it. */
+.chip.used {
+  opacity: 0.45;
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.chip.used:hover {
+  opacity: 1;
+}
+
+/* -------------------------------------------------------------- overuse strip */
+
+.overuse {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s1) var(--s2);
+  padding: 10px var(--s3);
+  margin-bottom: var(--s4);
+  background: var(--surface-container);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+}
+
+.overuse-label {
+  color: var(--on-surface-variant);
+  font-weight: 500;
+}
+
+.overuse-tag {
+  padding: 1px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  color: var(--on-surface-variant);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The bank switch sits above the register and reads as the primary choice. */
+.bank {
+  margin-bottom: var(--s2);
+}
+
+.bank .seg {
+  min-height: 34px;
+  font-size: 13px;
+}
+
+/* ----------------------------------------------------------------- status */
+
+.status {
+  min-height: 0;
+  font-size: 12px;
+  color: var(--on-surface-faint);
+}
+
+.status:not(:empty) {
+  padding: 0 0 var(--s4);
+  min-height: 1.6em;
+}
+
+.status.working {
+  color: var(--primary);
+}
+
+.status.problem {
+  color: var(--error);
+}
+
+/* --------------------------------------------------------------- controls */
+
+.ghost-btn {
+  background: none;
+  border: 0;
+  padding: 6px var(--s2);
+  margin-right: -8px;
+  border-radius: var(--radius-pill);
+  color: var(--primary);
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 120ms var(--ease);
+}
+
+.ghost-btn:hover {
+  background: var(--surface-container);
+}
+
+.solid-btn {
+  margin-top: var(--s3);
+  padding: 0 var(--s5);
+  min-height: 40px;
+  background: var(--primary);
+  border: 0;
+  border-radius: var(--radius-pill);
+  color: var(--on-primary);
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: filter 120ms var(--ease), box-shadow 120ms var(--ease);
+}
+
+.solid-btn.compact {
+  margin-top: var(--s2);
+  min-height: 34px;
+  padding: 0 var(--s4);
+  font-size: 13px;
+}
+
+.solid-btn:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 1px 3px var(--shadow);
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  margin-top: var(--s3);
+  font-size: 13px;
+  color: var(--on-surface-variant);
+  cursor: pointer;
+}
+
+input[type='checkbox'] {
+  accent-color: var(--primary);
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  cursor: pointer;
+}
+
+select {
+  width: 100%;
+  min-height: 40px;
+  padding: 0 var(--s2);
+  background: var(--surface);
+  border: 1px solid var(--outline-strong);
+  border-radius: var(--radius-sm);
+  color: var(--on-surface);
+  font-family: var(--sans);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* ------------------------------------------------------------------- foot */
+
+.foot {
+  margin-top: var(--s5);
+  padding-top: var(--s4);
+  border-top: 1px solid var(--outline);
+}
+
+summary {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  padding: var(--s1) 0;
+}
+
+summary:hover {
+  color: var(--on-surface);
+}
+
+.settings-body {
+  padding-top: var(--s3);
+}
+
+.field-label {
+  display: block;
+  margin: var(--s3) 0 var(--s1);
+  font-size: 12px;
+  color: var(--on-surface-variant);
+}
+
+.settings-body .field-label:first-child {
+  margin-top: 0;
+}
+
+input[type='password'],
+input[type='text'] {
+  width: 100%;
+  padding: 0 var(--s3);
+  min-height: 40px;
+  background: var(--surface);
+  border: 1px solid var(--outline-strong);
+  border-radius: var(--radius-sm);
+  color: var(--on-surface);
+  font-family: var(--mono);
+  font-size: 13px;
+}
+
+input[type='password']:focus,
+input[type='text']:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.note {
+  margin: var(--s1) 0 0;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--on-surface-faint);
+}
+
+/* ---------------------------------------------------------------- a11y */
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .fitted-list li {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 340px) {
+  .field-name {
+    display: none;
+  }
+}
