@@ -13,6 +13,10 @@
         .then((html) => {
           const doc = new DOMParser().parseFromString(html, 'text/html');
           document.body.innerHTML = doc.body.innerHTML;
+          // The panel's own paths are relative to the repo root, not this folder.
+          document.querySelectorAll('img[src^="icons/"]').forEach((img) => {
+            img.src = '../' + img.getAttribute('src');
+          });
           const shim = document.createElement('script');
           shim.src = 'preview-shim.js';
           shim.onload = () => {

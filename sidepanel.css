@@ -1,27 +1,32 @@
-/* Segue — styled to sit beside Google Docs: Material 3 surfaces, Google Sans,
-   Docs blue, 8px geometry. Light by default; dark is opt-in from Settings. */
+/* Segue — the mark's own palette: warm near-black, paper white, and one red
+   square for the full stop. Swiss editorial: hard corners, hairline rules, no
+   pills. No webfont — the policy promises DeepSeek is the only host we reach,
+   so the display face is whatever grotesque the machine already has. */
 
 :root {
   color-scheme: light;
 
-  /* Light — Docs default */
+  /* Light — paper */
   --surface: #ffffff;
-  --surface-container: #f0f4f9;
-  --surface-container-high: #e4e9f1;
-  --outline: #c4c7c5;
-  --outline-strong: #747775;
-  --on-surface: #1f1f1f;
-  --on-surface-variant: #444746;
-  --on-surface-faint: #5f6368;
-  --primary: #0b57d0;
-  --primary-container: #d3e3fd;
-  --on-primary-container: #041e49;
+  --surface-container: #f5f3f2;
+  --surface-container-high: #ebe7e5;
+  --outline: #dedad8;
+  --outline-strong: #201e1d;
+  --on-surface: #201e1d;
+  --on-surface-variant: #55514f;
+  --on-surface-faint: #6f6a67;
+  /* Brand red is 4.4:1 on paper, so small text takes the darkened one and the
+     square keeps the true colour. */
+  --primary: #c9240a;
+  --accent: #ec3013;
+  --primary-container: #201e1d;
+  --on-primary-container: #ffffff;
   --on-primary: #ffffff;
   --error: #b3261e;
-  --shadow: rgba(60, 64, 67, 0.24);
+  --shadow: rgba(32, 30, 29, 0.18);
 
-  --sans: 'Google Sans', 'Google Sans Text', 'Product Sans', Roboto, 'Segoe UI', Arial, sans-serif;
-  --mono: 'Roboto Mono', 'Cascadia Mono', Consolas, ui-monospace, monospace;
+  --sans: 'Helvetica Neue', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, monospace;
 
   --s1: 4px;
   --s2: 8px;
@@ -30,54 +35,63 @@
   --s5: 24px;
   --s6: 32px;
 
-  --radius-sm: 8px;
-  --radius-lg: 12px;
-  --radius-pill: 100px;
+  /* The mark has no curves. Neither does the panel. */
+  --radius-sm: 0;
+  --radius-lg: 0;
+  --radius-pill: 0;
   --ease: cubic-bezier(0.2, 0, 0, 1);
 }
 
-/* Docs dark theme values, applied on explicit choice… */
+/* Ink, applied on explicit choice… */
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --surface: #1b1b1b;
-  --surface-container: #282a2c;
-  --surface-container-high: #303134;
-  --outline: #444746;
-  --outline-strong: #8e918f;
-  --on-surface: #e3e3e3;
-  --on-surface-variant: #c4c7c5;
-  --on-surface-faint: #9aa0a6;
-  --primary: #a8c7fa;
-  --primary-container: #0842a0;
-  --on-primary-container: #d3e3fd;
-  --on-primary: #062e6f;
+  --surface: #171514;
+  --surface-container: #211e1d;
+  --surface-container-high: #2b2726;
+  --outline: #35302e;
+  --outline-strong: #f2efed;
+  --on-surface: #f2efed;
+  --on-surface-variant: #b4aeab;
+  --on-surface-faint: #8a8481;
+  --primary: #ff6b4f;
+  --accent: #ff4a2b;
+  --primary-container: #f2efed;
+  --on-primary-container: #171514;
+  --on-primary: #171514;
   --error: #f2b8b5;
-  --shadow: rgba(0, 0, 0, 0.5);
+  --shadow: rgba(0, 0, 0, 0.55);
 }
 
 /* …and on "Match system" when the OS is dark. */
 @media (prefers-color-scheme: dark) {
   :root[data-theme='system'] {
     color-scheme: dark;
-    --surface: #1b1b1b;
-    --surface-container: #282a2c;
-    --surface-container-high: #303134;
-    --outline: #444746;
-    --outline-strong: #8e918f;
-    --on-surface: #e3e3e3;
-    --on-surface-variant: #c4c7c5;
-    --on-surface-faint: #9aa0a6;
-    --primary: #a8c7fa;
-    --primary-container: #0842a0;
-    --on-primary-container: #d3e3fd;
-    --on-primary: #062e6f;
+    --surface: #171514;
+    --surface-container: #211e1d;
+    --surface-container-high: #2b2726;
+    --outline: #35302e;
+    --outline-strong: #f2efed;
+    --on-surface: #f2efed;
+    --on-surface-variant: #b4aeab;
+    --on-surface-faint: #8a8481;
+    --primary: #ff6b4f;
+    --accent: #ff4a2b;
+    --primary-container: #f2efed;
+    --on-primary-container: #171514;
+    --on-primary: #171514;
     --error: #f2b8b5;
-    --shadow: rgba(0, 0, 0, 0.5);
+    --shadow: rgba(0, 0, 0, 0.55);
   }
 }
 
 * {
   box-sizing: border-box;
+}
+
+/* Several strips are toggled with the `hidden` attribute but also carry a
+   `display` of their own, which would otherwise win and leave an empty box. */
+[hidden] {
+  display: none !important;
 }
 
 body {
@@ -95,26 +109,40 @@ body {
 
 .masthead {
   padding: var(--s4) 0 var(--s3);
-  border-bottom: 1px solid var(--outline);
+  border-bottom: 2px solid var(--outline-strong);
+}
+
+.lockup {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+}
+
+.mark {
+  width: 22px;
+  height: 22px;
+  display: block;
+  flex: none;
 }
 
 .wordmark {
   margin: 0;
   font-size: 20px;
-  font-weight: 500;
-  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.2;
   color: var(--on-surface);
 }
 
+/* The full stop is the mark. A square, never a circle. */
 .wordmark::after {
   content: '';
   display: inline-block;
   width: 6px;
   height: 6px;
-  margin-left: var(--s2);
-  border-radius: 50%;
-  background: var(--primary);
-  vertical-align: 0.35em;
+  margin-left: 3px;
+  background: var(--accent);
+  vertical-align: 0.06em;
 }
 
 .tagline {
@@ -138,10 +166,11 @@ body {
 
 .eyebrow {
   margin: 0;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--on-surface-variant);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--on-surface-faint);
 }
 
 .eyebrow.accent {
@@ -149,7 +178,8 @@ body {
 }
 
 .field-name {
-  font-size: 11px;
+  font-size: 10.5px;
+  letter-spacing: 0.05em;
   color: var(--on-surface-faint);
   text-align: right;
   overflow: hidden;
@@ -168,7 +198,7 @@ body {
   margin: 0;
   padding: var(--s3);
   background: var(--surface-container);
-  border-radius: var(--radius-lg);
+  border-left: 3px solid var(--outline-strong);
   font-size: 13px;
   line-height: 1.5;
   color: var(--on-surface-variant);
@@ -182,10 +212,10 @@ body {
 
 .excerpt .caret {
   display: inline-block;
-  width: 1.5px;
+  width: 2px;
   height: 1em;
   margin-left: 1px;
-  background: var(--primary);
+  background: var(--accent);
   vertical-align: -0.15em;
   animation: blink 1.1s steps(2, start) infinite;
 }
@@ -217,8 +247,8 @@ textarea {
 
 textarea:focus {
   outline: none;
-  border-color: var(--primary);
-  box-shadow: inset 0 0 0 1px var(--primary);
+  border-color: var(--outline-strong);
+  box-shadow: inset 0 0 0 1px var(--outline-strong);
 }
 
 /* --------------------------------------------------------- fitted results */
@@ -281,7 +311,8 @@ textarea:focus {
 
 .fit-btn .phrase {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   line-height: 1.3;
 }
 
@@ -293,7 +324,7 @@ textarea:focus {
 .fit-btn:hover {
   background: var(--surface-container);
   border-color: var(--outline-strong);
-  box-shadow: 0 1px 2px var(--shadow);
+  box-shadow: inset 3px 0 0 var(--accent);
 }
 
 .fit-btn:active {
@@ -305,7 +336,7 @@ textarea:focus {
 
 .library {
   padding: var(--s4) 0 0;
-  border-top: 1px solid var(--outline);
+  border-top: 2px solid var(--outline-strong);
 }
 
 /* Register — the floor for how formal the whole panel gets. */
@@ -320,6 +351,7 @@ textarea:focus {
 .seg {
   flex: 1;
   min-height: 32px;
+  letter-spacing: 0.04em;
   background: var(--surface);
   border: 0;
   border-right: 1px solid var(--outline);
@@ -342,6 +374,7 @@ textarea:focus {
 .seg.on {
   background: var(--primary-container);
   color: var(--on-primary-container);
+  font-weight: 600;
 }
 
 /* Situation filters */
@@ -374,7 +407,7 @@ textarea:focus {
   background: var(--primary-container);
   border-color: transparent;
   color: var(--on-primary-container);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .group {
@@ -391,7 +424,8 @@ textarea:focus {
 .group-name {
   margin: 0;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 700;
+  letter-spacing: -0.015em;
   color: var(--on-surface);
 }
 
@@ -467,10 +501,14 @@ textarea:focus {
   color: var(--on-surface);
 }
 
+/* Flagged with the brand rule rather than a red fill: white on #ec3013 is
+   4.4:1, which is under AA for text this size. */
 .chip.suggested {
-  background: var(--primary-container);
-  border-color: transparent;
-  color: var(--on-primary-container);
+  background: var(--surface);
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+  color: var(--on-surface);
+  font-weight: 600;
 }
 
 /* Already worn out in this passage — visible, but the eye skips it. */
@@ -494,13 +532,16 @@ textarea:focus {
   padding: 10px var(--s3);
   margin-bottom: var(--s4);
   background: var(--surface-container);
-  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--accent);
   font-size: 12px;
 }
 
 .overuse-label {
-  color: var(--on-surface-variant);
-  font-weight: 500;
+  color: var(--on-surface-faint);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .overuse-tag {
@@ -567,15 +608,16 @@ textarea:focus {
   margin-top: var(--s3);
   padding: 0 var(--s5);
   min-height: 40px;
-  background: var(--primary);
+  background: var(--outline-strong);
   border: 0;
   border-radius: var(--radius-pill);
-  color: var(--on-primary);
+  color: var(--surface);
   font-family: var(--sans);
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   cursor: pointer;
-  transition: filter 120ms var(--ease), box-shadow 120ms var(--ease);
+  transition: background 120ms var(--ease);
 }
 
 .solid-btn.compact {
@@ -586,8 +628,8 @@ textarea:focus {
 }
 
 .solid-btn:hover {
-  filter: brightness(1.08);
-  box-shadow: 0 1px 3px var(--shadow);
+  background: var(--accent);
+  color: #ffffff;
 }
 
 .check {
@@ -626,12 +668,14 @@ select {
 .foot {
   margin-top: var(--s5);
   padding-top: var(--s4);
-  border-top: 1px solid var(--outline);
+  border-top: 2px solid var(--outline-strong);
 }
 
 summary {
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--on-surface-variant);
   cursor: pointer;
   padding: var(--s1) 0;
@@ -672,8 +716,8 @@ input[type='text'] {
 input[type='password']:focus,
 input[type='text']:focus {
   outline: none;
-  border-color: var(--primary);
-  box-shadow: inset 0 0 0 1px var(--primary);
+  border-color: var(--outline-strong);
+  box-shadow: inset 0 0 0 1px var(--outline-strong);
 }
 
 .note {
@@ -686,7 +730,7 @@ input[type='text']:focus {
 /* ---------------------------------------------------------------- a11y */
 
 :focus-visible {
-  outline: 2px solid var(--primary);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 

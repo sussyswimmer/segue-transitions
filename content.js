@@ -501,37 +501,42 @@
   let options = [];
   let cursor = -1;
 
+  // Swiss editorial, same as the panel: hard corners, hairline rules, a red bar
+  // across the top standing in for the mark.
   const POPUP_CSS = [
     ':host { all: initial; }',
     '.pop { position: fixed; z-index: 2147483647; width: 292px; max-width: calc(100vw - 24px);',
     '  background: var(--bg); color: var(--fg); border: 1px solid var(--line);',
-    '  border-radius: 12px; box-shadow: 0 8px 28px var(--shadow);',
-    '  font-family: Google Sans, Google Sans Text, Roboto, Segoe UI, Arial, sans-serif;',
+    '  border-top: 2px solid var(--brand); border-radius: 0;',
+    '  box-shadow: 0 6px 24px var(--shadow);',
+    "  font-family: 'Helvetica Neue', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;",
     '  font-size: 13px; line-height: 1.45; overflow: hidden;',
     '  animation: seguein 140ms cubic-bezier(0.2, 0, 0, 1); }',
     '@keyframes seguein { from { opacity: 0; transform: translateY(-4px); } }',
     '@media (prefers-reduced-motion: reduce) { .pop { animation: none; } }',
-    '.head { display: flex; align-items: baseline; gap: 6px; padding: 9px 12px 7px;',
+    '.head { display: flex; align-items: baseline; gap: 6px; padding: 8px 12px 7px;',
     '  border-bottom: 1px solid var(--line); font-size: 11px; color: var(--muted); }',
-    '.rel { font-weight: 600; color: var(--accent); letter-spacing: 0.04em; text-transform: uppercase; }',
-    '.opts { display: block; padding: 4px; }',
+    '.rel { font-weight: 700; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; }',
+    '.opts { display: block; padding: 3px; }',
     '.opt { display: block; width: 100%; text-align: left; padding: 7px 9px; border: 0;',
-    '  border-radius: 7px; background: transparent; color: var(--fg); font: inherit; cursor: pointer; }',
-    '.opt .p { font-weight: 600; }',
+    '  border-radius: 0; background: transparent; color: var(--fg); font: inherit; cursor: pointer; }',
+    '.opt .p { font-weight: 600; letter-spacing: -0.01em; }',
     '.opt .w { color: var(--muted); font-size: 11.5px; }',
     '.opt:hover, .opt.on { background: var(--hover); }',
-    '.opt.on { box-shadow: inset 2px 0 0 var(--accent); }',
+    '.opt.on { box-shadow: inset 3px 0 0 var(--brand); }',
     '.foot { padding: 6px 12px 8px; border-top: 1px solid var(--line); font-size: 10.5px; color: var(--muted); }',
-    'kbd { font: inherit; padding: 0 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--hover); }',
+    'kbd { font: inherit; padding: 0 4px; border: 1px solid var(--line); border-radius: 0; background: var(--hover); }',
     '.msg { padding: 11px 12px; color: var(--muted); }'
   ].join('\n');
 
+  // --brand is the true mark red, used for rules and bars. --accent is the same
+  // red darkened enough for small text to clear AA on paper.
   const THEME_LIGHT =
-    '--bg: #ffffff; --fg: #1f1f1f; --muted: #5f6368; --line: #dadce0;' +
-    '--accent: #0b57d0; --hover: #f0f4f9; --shadow: rgba(60,64,67,0.28);';
+    '--bg: #ffffff; --fg: #201e1d; --muted: #6f6a67; --line: #dedad8;' +
+    '--accent: #c9240a; --brand: #ec3013; --hover: #f5f3f2; --shadow: rgba(32,30,29,0.22);';
   const THEME_DARK =
-    '--bg: #22262e; --fg: #e7e9ee; --muted: #a8afba; --line: #3b414d;' +
-    '--accent: #8fb4f5; --hover: #2c313a; --shadow: rgba(0,0,0,0.55);';
+    '--bg: #171514; --fg: #f2efed; --muted: #8a8481; --line: #35302e;' +
+    '--accent: #ff6b4f; --brand: #ff4a2b; --hover: #211e1d; --shadow: rgba(0,0,0,0.6);';
 
   function themeVars() {
     if (prefs.theme === 'dark') return THEME_DARK;

@@ -6,8 +6,10 @@ sentence needs to make. Underneath sits a standing library of ~1,200 transitions
 relations and ~390 signposting phrases across 16 essay moves, which works with no key and no
 network.
 
-Styled to match Google Docs — Material 3 surfaces, Google Sans, Docs blue. Light by default;
-Dark and Match system are in Settings.
+Styled to the Segue mark: warm near-black, paper white, and one red square for the full stop.
+Swiss editorial — hard corners, hairline rules, a system grotesque rather than a webfont, since
+DeepSeek is meant to be the only host the extension reaches. Light by default; Dark and Match
+system are in Settings.
 
 ## Install
 

@@ -35,33 +35,36 @@
         vertical-align: -3px; margin-left: 1px;
       }
 
-      /* The inline popup, exactly as the extension renders it */
+      /* The inline popup, exactly as the extension renders it. Keep in step with
+         POPUP_CSS in content.js. */
       .pop {
         position: absolute; left: 398px; top: 172px; width: 292px;
-        background: #fff; color: #1f1f1f; border: 1px solid #dadce0;
-        border-radius: 12px; box-shadow: 0 8px 28px rgba(60,64,67,.28);
+        background: #fff; color: #201e1d; border: 1px solid #dedad8;
+        border-top: 2px solid #ec3013; border-radius: 0;
+        box-shadow: 0 6px 24px rgba(32,30,29,.22);
+        font-family: 'Helvetica Neue', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
         font-size: 13px; line-height: 1.45; overflow: hidden;
       }
       .pop .head {
-        padding: 9px 12px 7px; border-bottom: 1px solid #dadce0;
-        font-size: 11px; color: #5f6368;
+        padding: 8px 12px 7px; border-bottom: 1px solid #dedad8;
+        font-size: 11px; color: #6f6a67;
       }
       .pop .rel {
-        font-weight: 600; color: #0b57d0; letter-spacing: .04em;
+        font-weight: 700; color: #c9240a; letter-spacing: .12em;
         text-transform: uppercase; margin-right: 6px;
       }
-      .pop .opts { padding: 4px; }
-      .pop .opt { padding: 7px 9px; border-radius: 7px; }
-      .pop .opt.on { background: #f0f4f9; box-shadow: inset 2px 0 0 #0b57d0; }
-      .pop .p { font-weight: 600; }
-      .pop .w { color: #5f6368; font-size: 11.5px; }
+      .pop .opts { padding: 3px; }
+      .pop .opt { padding: 7px 9px; border-radius: 0; }
+      .pop .opt.on { background: #f5f3f2; box-shadow: inset 3px 0 0 #ec3013; }
+      .pop .p { font-weight: 600; letter-spacing: -.01em; }
+      .pop .w { color: #6f6a67; font-size: 11.5px; }
       .pop .foot {
-        padding: 6px 12px 8px; border-top: 1px solid #dadce0;
-        font-size: 10.5px; color: #5f6368;
+        padding: 6px 12px 8px; border-top: 1px solid #dedad8;
+        font-size: 10.5px; color: #6f6a67;
       }
       kbd {
-        font: inherit; padding: 0 4px; border: 1px solid #dadce0;
-        border-radius: 4px; background: #f0f4f9;
+        font: inherit; padding: 0 4px; border: 1px solid #dedad8;
+        border-radius: 0; background: #f5f3f2;
       }
 
       /* Right: the real side panel, loaded from the actual source */
@@ -73,6 +76,7 @@
         height: 46px; border-bottom: 1px solid #e8eaed; display: flex;
         align-items: center; padding: 0 16px; font-size: 12.5px; color: #5f6368; gap: 8px;
       }
+      .panel-head img { width: 16px; height: 16px; display: block; }
       iframe { flex: 1; width: 100%; border: 0; }
     </style>
   </head>
@@ -122,7 +126,7 @@
     </div>
 
     <div class="panel-wrap">
-      <div class="panel-head">Segue</div>
+      <div class="panel-head"><img src="../icons/16.png" alt="" />Segue</div>
       <iframe src="panel.html" title="Segue side panel"></iframe>
     </div>
   </body>
