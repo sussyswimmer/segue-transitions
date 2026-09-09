@@ -2,7 +2,7 @@
 // Opens the panel, keeps content scripts alive, runs the keyboard command, and makes
 // the DeepSeek call on behalf of the inline popup.
 
-import { askDeepSeek } from './ask.js';
+import { askDeepSeek, resolveKey } from './ask.js';
 
 function armPanel() {
   chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true }).catch(() => {});
@@ -54,14 +54,15 @@ chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
   // The inline popup's request — a content script cannot call the API itself.
   if (msg && msg.type === 'ASK_DEEPSEEK') {
     (async () => {
-      const stored = await chrome.storage.local.get(['apiKey', 'register']);
-      if (!stored.apiKey) {
+      const stored = await chrome.storage.local.get(['apiKey', 'online', 'register']);
+      const apiKey = resolveKey(stored);
+      if (!apiKey) {
         sendResponse({ ok: false, error: 'no-key' });
         return;
       }
       try {
         const result = await askDeepSeek({
-          apiKey: stored.apiKey,
+          apiKey,
           register: stored.register || 'balanced',
           passage: msg.passage,
           count: msg.count || 5,

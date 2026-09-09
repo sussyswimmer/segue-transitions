@@ -31,7 +31,7 @@ Segue - transitions in context
 
 **Short description** (132 char limit; this is 121)
 ```
-Reads the sentence you just wrote and suggests the transition that fits what comes next. Uses your own DeepSeek key.
+Reads the sentence you just wrote and suggests the transition that fits what comes next. Works out of the box, no account needed.
 ```
 
 **Category:** Productivity → Workflow & Planning
@@ -81,12 +81,13 @@ forums, forms. Google Docs is supported too, which takes special handling — Do
 your text on a canvas, so Segue mirrors your keystrokes to follow your sentence and
 inserts through Docs' own input path.
 
-BRING YOUR OWN KEY
+NO ACCOUNT NEEDED
 
-Context-aware suggestions run on DeepSeek and require your own API key from
-platform.deepseek.com, entered once in the panel. Each suggestion costs a fraction of a
-cent. Your key is stored locally in your browser and sent only to DeepSeek. With no key,
-the library still works in full.
+Context-aware suggestions run on DeepSeek using a key built into the extension, so there
+is nothing to sign up for or paste in. The sentence before your cursor is sent only to
+DeepSeek, and a switch in Settings turns that off entirely. If you have your own DeepSeek
+key you can enter it and it will be used instead. With suggestions off, the library still
+works in full.
 
 Segue has no server, no analytics, and no tracking.
 ```
@@ -103,13 +104,13 @@ you have just finished, and inserting the one you choose at your cursor.
 
 **Permission justifications** — paste each into its field:
 
-- **`storage`** — Stores the user's DeepSeek API key and their display preferences (theme, register, which phrase tiers are expanded) on their own device. Nothing is stored remotely.
+- **`storage`** — Stores the user's display preferences (theme, register, which phrase tiers are expanded, whether online suggestions are on) and an optional personal DeepSeek API key on their own device. Nothing is stored remotely.
 - **`tabs`** — The side panel runs in a separate document from the page. It needs the active tab's id to ask that specific tab for the text around the cursor and to insert the chosen phrase back into it.
 - **`scripting`** — When the extension updates, content scripts already running in open tabs are disconnected by Chrome. This permission re-injects them so the extension keeps working without the user manually reloading every tab.
 - **`clipboardWrite`** — Some editors refuse programmatic insertion. In that case the chosen phrase is copied to the clipboard so the user can paste it themselves, rather than the click silently doing nothing.
 - **`sidePanel`** — The extension's main interface is a Chrome side panel.
-- **Host permission `https://api.deepseek.com/*`** — The only network destination. The sentence being written is sent there to generate suggestions, using the key the user supplied.
-- **Content scripts on all sites** — Segue must work in whatever text box the user is writing in, which can be on any website. It only reads the field currently being edited, only reads the text immediately before the cursor, and sends that text nowhere unless the user has configured an API key.
+- **Host permission `https://api.deepseek.com/*`** — The only network destination. The sentence being written is sent there to generate suggestions, authenticated with the key built into the extension, or a personal key if the user entered one.
+- **Content scripts on all sites** — Segue must work in whatever text box the user is writing in, which can be on any website. It only reads the field currently being edited, only reads the text immediately before the cursor, and sends that text nowhere if the user has switched online suggestions off.
 - **Remote code** — No. All code is contained in the package.
 
 **Data usage disclosures** — tick these, then tick all three certification boxes:
@@ -117,7 +118,7 @@ you have just finished, and inserting the one you choose at your cursor.
 | Category | Tick? | Why |
 | --- | --- | --- |
 | Personal communications | **Yes** | The text being written is sent to DeepSeek for suggestions |
-| Authentication information | **Yes** | The user's own API key is stored locally and sent to DeepSeek |
+| Authentication information | **Yes** | An optional personal API key is stored locally and sent to DeepSeek |
 | Personally identifiable information | No | Never requested or transmitted |
 | Health / financial / location / web history | No | Never touched |
 | User activity | No | No clicks, analytics or behaviour are recorded |

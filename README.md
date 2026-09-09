@@ -15,10 +15,19 @@ Dark and Match system are in Settings.
 2. Turn on **Developer mode** (top right).
 3. Click **Load unpacked** and choose this folder.
 4. Pin the extension, click its icon to open the side panel.
-5. Open **Settings** in the panel, paste your DeepSeek key (`sk-…`), hit **Save settings**.
+5. Start writing. Suggestions work out of the box on the key the extension ships with.
 
-Get a key at https://platform.deepseek.com. It is stored in this Chrome profile's extension
-storage and sent only to `api.deepseek.com` — anyone with access to the profile can read it.
+## The built-in key
+
+`config.js` holds `BUILT_IN_KEY`, the DeepSeek key every install uses. It is empty in the
+repository: paste your key in locally before you zip for the Web Store, and do not commit it.
+Anyone who unpacks the extension can read that key, so treat it as public — put a spending cap
+or a prepaid balance on the DeepSeek account behind it, and rotate it if usage looks wrong.
+
+Settings still has a field for a personal key. If someone enters one it takes precedence over the
+built-in key, is stored in this Chrome profile's extension storage, and is sent only to
+`api.deepseek.com`. A **Suggest transitions with DeepSeek** switch above it turns the network
+off entirely, leaving the standing library.
 
 **Reload the extension after any code change**, and refresh any tab that was already open.
 
@@ -90,6 +99,8 @@ has its own filters and rare tiers.
   and Example along with it. **Show all rare** flips every group at once.
 - **Situation filters** — the row of relation names filters the library. Click several to combine;
   click again to clear.
+- **Suggest transitions with DeepSeek** is the master switch for sending text anywhere. Off, the
+  panel and the popup fall back to the library alone.
 - Suggestions refresh ~0.7s after you stop typing. Turn that off in Settings and drive it with
   **Ask again** instead.
 
@@ -119,6 +130,7 @@ Rare tiers carry the things you won't get from a school handout: *A fortiori*, *
 | `background.js` | Opens the panel on toolbar click; re-injects the content script on demand |
 | `content.js` | Tracks the focused field, extracts caret context, inserts at the caret, Docs path |
 | `sidepanel.html/.css/.js` | The panel UI, controls, and the DeepSeek call |
+| `config.js` | Build-time settings — the built-in DeepSeek key |
 | `transitions.js` | The standing library — 24 relations, common + rare tiers |
 | `signposts.js` | The signposting bank — 16 essay moves, common + rare tiers |
 

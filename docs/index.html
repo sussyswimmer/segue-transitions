@@ -6,7 +6,7 @@
     <title>Privacy Policy — Segue</title>
     <meta
       name="description"
-      content="What the Segue Chrome extension does with your data. It has no server, no analytics, and sends nothing unless you configure an API key."
+      content="What the Segue Chrome extension does with your data. It has no server, no analytics, and sends nothing once you switch DeepSeek suggestions off."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -208,16 +208,18 @@
         <h2>What leaves your browser, and when</h2>
         <div class="callout">
           <p>
-            <strong>Only if you have entered a DeepSeek API key.</strong> With no key configured,
-            nothing leaves your browser at all — the built-in library of transition phrases works
-            entirely offline.
+            <strong>Only while “Suggest transitions with DeepSeek” is switched on in Settings.</strong>
+            It is on by default. Switch it off and nothing leaves your browser at all — the built-in
+            library of transition phrases works entirely offline.
           </p>
         </div>
         <p>
-          When a key is configured and you finish a sentence (or press the shortcut, or use the side
-          panel), Segue sends <strong>up to the last 900 characters of text before your cursor</strong>
-          to DeepSeek's API at <code>https://api.deepseek.com</code> so it can suggest a fitting
-          transition. That text is sent together with your API key, which authenticates the request.
+          While it is on and you finish a sentence (or press the shortcut, or use the side panel),
+          Segue sends <strong>up to the last 900 characters of text before your cursor</strong> to
+          DeepSeek's API at <code>https://api.deepseek.com</code> so it can suggest a fitting
+          transition. The request is authenticated with an API key that ships inside the extension,
+          so you do not need an account of your own. If you enter a personal key in Settings, that
+          key is used instead.
         </p>
         <p>
           Nothing else is transmitted. Segue does not send the rest of the document, the page URL,
@@ -233,14 +235,14 @@
         <h3>DeepSeek is a third party</h3>
         <p>
           Text sent for suggestions is processed by DeepSeek under <strong>their</strong> terms and
-          privacy policy, not this one. Read them before entering a key:
+          privacy policy, not this one. Read them before leaving suggestions switched on:
           <a href="https://platform.deepseek.com/downloads/DeepSeek%20Privacy%20Policy.html"
             >DeepSeek Privacy Policy</a
           >.
         </p>
         <p>
-          If you would rather no text ever left your machine, leave the key field empty. The library
-          still works.
+          If you would rather no text ever left your machine, untick “Suggest transitions with
+          DeepSeek” in Settings. The library still works.
         </p>
       </section>
 
@@ -255,7 +257,8 @@
               <tr><th scope="col">Item</th><th scope="col">Why</th></tr>
             </thead>
             <tbody>
-              <tr><td>DeepSeek API key</td><td>To authenticate suggestion requests</td></tr>
+              <tr><td>DeepSeek suggestions switch</td><td>Whether text may be sent for suggestions</td></tr>
+              <tr><td>Your own DeepSeek API key, if entered</td><td>To authenticate suggestion requests in place of the built-in key</td></tr>
               <tr><td>Theme</td><td>Light, dark or system preference</td></tr>
               <tr><td>Register</td><td>Plain, balanced or formal preference</td></tr>
               <tr><td>Open rare tiers</td><td>Which phrase groups you have expanded</td></tr>
@@ -265,7 +268,7 @@
         </div>
         <div class="callout">
           <p>
-            <strong>Your API key is stored unencrypted</strong>, which is the only storage Chrome
+            <strong>A personal API key is stored unencrypted</strong>, which is the only storage Chrome
             extensions have. Anyone with access to your Chrome profile can read it. Treat it as you
             would a saved password on a shared computer, and revoke it from the DeepSeek dashboard if
             that ever matters. Uninstalling Segue deletes everything above.

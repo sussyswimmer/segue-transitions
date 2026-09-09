@@ -49,16 +49,20 @@
   let popupTimer = 0;
   let lastTrigger = ''; // so one full stop fires once, not on every keystroke after it
 
-  const prefs = { autoPopup: true, theme: 'light' };
+  // `online` is the master switch for sending text to DeepSeek; with it off the
+  // popup never fires, rather than firing and reporting that it has no key.
+  const prefs = { autoPopup: true, online: true, theme: 'light' };
   chrome.storage.local
-    .get(['autoPopup', 'theme'])
+    .get(['autoPopup', 'online', 'theme'])
     .then((stored) => {
       prefs.autoPopup = stored.autoPopup !== false;
+      prefs.online = stored.online !== false;
       prefs.theme = stored.theme || 'light';
     })
     .catch(() => {});
   chrome.storage.onChanged.addListener((changes) => {
     if (changes.autoPopup) prefs.autoPopup = changes.autoPopup.newValue !== false;
+    if (changes.online) prefs.online = changes.online.newValue !== false;
     if (changes.theme) prefs.theme = changes.theme.newValue || 'light';
   });
 
@@ -212,7 +216,7 @@
   }
 
   function maybeAutoSuggest() {
-    if (!prefs.autoPopup || !target) return;
+    if (!prefs.autoPopup || !prefs.online || !target) return;
     const ctx = readContext();
     if (!ctx || ctx.kind !== 'field') return;
     offerFor(ctx);
@@ -274,7 +278,7 @@
     if (event.key.length !== 1) return;
 
     docsBuffer = (docsBuffer + event.key).slice(-BEFORE_CHARS);
-    if (!prefs.autoPopup) return;
+    if (!prefs.autoPopup || !prefs.online) return;
     offerFor({ kind: 'docs', before: docsBuffer, after: '' });
   }
 
@@ -624,7 +628,7 @@
 
     if (!response || !response.ok) {
       if (response && response.error === 'no-key') {
-        paintPopup(message('Add your DeepSeek key in the Segue panel to get suggestions here.'));
+        paintPopup(message('Turn on DeepSeek suggestions in the Segue panel to get them here.'));
         setTimeout(closePopup, 3200);
       } else {
         closePopup();

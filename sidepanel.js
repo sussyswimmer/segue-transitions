@@ -4,7 +4,7 @@
 
 import { RELATIONS, RELATION_BY_ID, RELATION_IDS } from './transitions.js';
 import { SIGNPOSTS } from './signposts.js';
-import { askDeepSeek } from './ask.js';
+import { askDeepSeek, resolveKey } from './ask.js';
 
 const MIN_CHARS = 25; // below this there is nothing to reason about
 const MIN_GAP_MS = 1500; // floor between automatic calls
@@ -38,6 +38,7 @@ const el = {
   apiKey: document.getElementById('api-key'),
   theme: document.getElementById('theme'),
   autoToggle: document.getElementById('auto-toggle'),
+  onlineToggle: document.getElementById('online-toggle'),
   popupToggle: document.getElementById('popup-toggle'),
   saveSettings: document.getElementById('save-settings'),
   settingsStatus: document.getElementById('settings-status'),
@@ -45,7 +46,8 @@ const el = {
 };
 
 let settings = {
-  apiKey: '',
+  apiKey: '', // the user's own key, if any — overrides the built-in one
+  online: true, // send text to DeepSeek at all
   auto: true,
   autoPopup: true,
   theme: 'light',
@@ -70,10 +72,11 @@ function applyTheme(theme) {
 
 async function loadSettings() {
   const stored = await chrome.storage.local.get([
-    'apiKey', 'auto', 'autoPopup', 'theme', 'register', 'openRare'
+    'apiKey', 'online', 'auto', 'autoPopup', 'theme', 'register', 'openRare'
   ]);
   settings = {
     apiKey: stored.apiKey || '',
+    online: stored.online !== false,
     auto: stored.auto !== false,
     autoPopup: stored.autoPopup !== false,
     theme: stored.theme || 'light',
@@ -82,16 +85,24 @@ async function loadSettings() {
   };
   openRare = new Set(settings.register === 'formal' ? RELATION_IDS : settings.openRare);
   el.apiKey.value = settings.apiKey;
+  el.onlineToggle.checked = settings.online;
   el.autoToggle.checked = settings.auto;
   el.popupToggle.checked = settings.autoPopup;
   el.theme.value = settings.theme;
   applyTheme(settings.theme);
   paintRegister();
-  if (!settings.apiKey) el.settings.open = true;
+  // Only open Settings unprompted when there is genuinely no way to get suggestions.
+  if (!activeKey() && settings.online) el.settings.open = true;
+}
+
+/** The key requests will actually use, or '' when suggestions are off or no key exists. */
+function activeKey() {
+  return resolveKey(settings);
 }
 
 el.saveSettings.addEventListener('click', async () => {
   settings.apiKey = el.apiKey.value.trim();
+  settings.online = el.onlineToggle.checked;
   settings.auto = el.autoToggle.checked;
   settings.autoPopup = el.popupToggle.checked;
   settings.theme = el.theme.value;
@@ -99,13 +110,17 @@ el.saveSettings.addEventListener('click', async () => {
   // The content script watches storage, so the popup preference takes effect at once.
   await chrome.storage.local.set({
     apiKey: settings.apiKey,
+    online: settings.online,
     auto: settings.auto,
     autoPopup: settings.autoPopup,
     theme: settings.theme
   });
-  el.settingsStatus.textContent = settings.apiKey ? 'Saved.' : 'Saved — library only, no key set.';
+  el.settingsStatus.textContent = activeKey()
+    ? 'Saved.'
+    : settings.online ? 'Saved — library only, no key available.' : 'Saved — library only.';
   setTimeout(() => (el.settingsStatus.textContent = ''), 2500);
-  if (settings.apiKey && context) askForFit(context, { force: true });
+  if (activeKey() && context) askForFit(context, { force: true });
+  else hideFitted();
 });
 
 // Live theme preview while the select changes, so the choice is visible before saving.
@@ -306,8 +321,14 @@ el.manual.addEventListener('keydown', (event) => {
 async function askForFit(ctx, { force = false } = {}) {
   if (!ctx) return;
 
-  if (!settings.apiKey) {
-    setStatus('No API key — showing the standing library only.', '');
+  const apiKey = activeKey();
+  if (!apiKey) {
+    setStatus(
+      settings.online
+        ? 'No API key — showing the standing library only.'
+        : 'Online suggestions are off — showing the standing library only.',
+      ''
+    );
     hideFitted();
     return;
   }
@@ -336,7 +357,7 @@ async function askForFit(ctx, { force = false } = {}) {
 
   try {
     const result = await askDeepSeek({
-      apiKey: settings.apiKey,
+      apiKey,
       register: settings.register,
       passage,
       count: 8,

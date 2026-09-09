@@ -85,7 +85,16 @@
       <details id="settings">
         <summary>Settings</summary>
         <div class="settings-body">
-          <label class="field-label" for="api-key">DeepSeek API key</label>
+          <label class="check">
+            <input type="checkbox" id="online-toggle" checked />
+            <span>Suggest transitions with DeepSeek</span>
+          </label>
+          <p class="note">
+            Sends the sentence before your cursor to api.deepseek.com using the key Segue ships
+            with. Untick it and nothing leaves your browser; the library still works in full.
+          </p>
+
+          <label class="field-label" for="api-key">Your own DeepSeek API key (optional)</label>
           <input
             type="password"
             id="api-key"
@@ -95,7 +104,8 @@
             aria-describedby="key-note"
           />
           <p class="note" id="key-note">
-            Kept in this browser's extension storage and sent only to api.deepseek.com. Anyone with
+            Leave empty to use the built-in key. If you set one it takes precedence, is kept in
+            this browser's extension storage, and is sent only to api.deepseek.com. Anyone with
             access to this Chrome profile can read it.
           </p>
 

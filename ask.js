@@ -3,9 +3,19 @@
 // CORS), so the inline popup routes its request through the background worker instead.
 
 import { RELATION_IDS } from './transitions.js';
+import { BUILT_IN_KEY } from './config.js';
 
 const DEEPSEEK_URL = 'https://api.deepseek.com/chat/completions';
 const MODEL = 'deepseek-chat';
+
+/**
+ * The key a request should use: the user's own if they set one, else the built-in one.
+ * Returns '' when online suggestions are switched off or no key exists at all.
+ */
+export function resolveKey({ apiKey = '', online = true } = {}) {
+  if (online === false) return '';
+  return (apiKey || '').trim() || BUILT_IN_KEY;
+}
 
 export const REGISTER_NOTE = {
   plain: 'Keep every suggestion plain and everyday. No archaic or Latin forms.',
