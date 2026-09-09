@@ -63,8 +63,9 @@ reading and insertion are direct and caret-accurate.
 
 Finish a sentence — type a full stop, question mark or exclamation — and a small list opens at
 your cursor with the five transitions that fit what you just wrote. `↑↓` to pick, `Enter` to
-insert, `Esc` to dismiss; typing anything else dismisses it too. `Ctrl+Shift+Space` asks for it at
-any moment, and `Ctrl+Shift+U` opens the panel.
+insert, `Esc` to dismiss; typing anything else dismisses it too. `Alt+T` asks for it at any
+moment — that is the only registered command, and Chrome lets you rebind it at
+`chrome://extensions/shortcuts`. The panel opens from the toolbar icon.
 
 The trigger is deliberately picky: it ignores decimals (`3.14`), list numbers, abbreviations
 (`e.g.`, `Dr.`, `etc.`), ellipses, and sentences under 30 characters, and it fires once per full

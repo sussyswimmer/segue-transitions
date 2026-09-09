@@ -1,0 +1,110 @@
+SEGUE — CHROME WEB STORE LISTING
+Copy each block between the dashed lines. Nothing here needs editing.
+
+
+================================================================
+1. ITEM NAME  (45 char limit — this is 30)
+================================================================
+----------------------------------------------------------------
+Segue - transitions in context
+----------------------------------------------------------------
+
+
+================================================================
+2. SHORT DESCRIPTION / SUMMARY  (132 char limit — this is 122)
+================================================================
+----------------------------------------------------------------
+Reads the sentence you just wrote and suggests the transition that fits what comes next. Works out of the box, no account.
+----------------------------------------------------------------
+
+
+================================================================
+3. DESCRIPTION  (16,000 char limit — this is 3,553)
+================================================================
+----------------------------------------------------------------
+Segue watches the text box you are writing in and, the moment you finish a sentence, offers the transition words that actually fit what comes next — not a generic list, but options chosen for the logical move your next sentence needs to make.
+
+HOW IT WORKS
+
+Type a full stop and a small list opens at your cursor with five ranked options, each with a few words on the shade of meaning it carries. Arrow keys to choose, Enter to insert, Escape to dismiss. The phrase lands with spacing and capitalisation fitted to the surrounding text, so "However," becomes "however," when it falls mid-sentence.
+
+Press Alt+T to ask for suggestions at any moment. Chrome lets you rebind that at chrome://extensions/shortcuts.
+
+The trigger is deliberately picky. It ignores decimals like 3.14, list numbers, abbreviations such as e.g. and Dr., ellipses, and sentences under 30 characters, and it fires once per full stop rather than on every keystroke after it. Turn it off in Settings if you would rather drive the panel by hand.
+
+A STANDING LIBRARY THAT WORKS OFFLINE
+
+Underneath sits a browsable library of 1,207 phrases across 24 rhetorical relations: Addition, Similarity, Contrast, Concession, Refutation, Cause, Effect, Purpose, Condition, Exception, Alternative, Sequence, Time, Emphasis, Example, Evidence, Clarification, Comparison, Generalisation, Qualification, Topic shift, Reference back, Digression and Conclusion.
+
+Every relation carries two tiers. The common tier mixes the handbook connectives with the sayings that do the same work — On the flip side, At the end of the day, Nine times out of ten, The long and short of it is. The rare tier carries what a school handout will not give you: A fortiori, Mutatis mutandis, Pari passu, Inasmuch as, Be that as it may, Seriatim, Nota bene, Obiter dictum, In fine. Open the rare tier for Contrast without dragging Sequence along with it.
+
+A second bank of 387 phrases covers the moves an essay makes beyond joining two sentences: stating the claim, mapping what follows, posing a question, bringing in a source and summarising it, raising a counterargument and answering it, weighing the evidence, hedging, defining a term, refining the claim, naming the stakes, directing the reader, acknowledging limits, closing a paragraph and closing the essay.
+
+The library needs no API key and no network.
+
+IT NOTICES WHAT YOU OVERUSE
+
+Segue counts the connectives your passage already leans on. Anything used twice or more is named in a strip under the suggestions, struck through in the library, and excluded from what gets offered — because the thing that makes an essay read as padded is the same transition four paragraphs running.
+
+WHERE IT WORKS
+
+Any ordinary text box: Gmail, Notion, Slack, Canvas, Overleaf, Substack, WordPress, forums, forms. Google Docs is supported too, which takes special handling — Docs draws your text on a canvas rather than as page text, so Segue follows your sentence through Docs' own input path and inserts the same way.
+
+NO ACCOUNT NEEDED
+
+Context-aware suggestions run on DeepSeek using a key built into the extension, so there is nothing to sign up for or paste in. The sentence before your cursor is sent only to DeepSeek, and a switch in Settings turns that off entirely. If you have your own DeepSeek key you can enter it and it will be used instead. With suggestions switched off, the library still works in full.
+
+Segue has no server, no analytics, and no tracking. Nothing is ever sent to the developer.
+
+Privacy policy: https://sussyswimmer.github.io/segue-transitions/
+----------------------------------------------------------------
+
+
+================================================================
+4. CATEGORY   (dropdown)
+================================================================
+Pick:  Productivity  ->  Workflow & Planning
+
+If you would rather aim at students, Productivity -> Education is the
+defensible second choice. Do not pick Tools; it is a dumping ground and
+ranks poorly.
+
+
+================================================================
+5. LANGUAGE   (dropdown)
+================================================================
+Pick:  English (United Kingdom)
+
+The copy above uses British spelling (Generalisation, capitalisation),
+so UK is the honest match. Plain "English" or "English (United States)"
+will also be accepted if you prefer the wider default.
+
+
+================================================================
+6. GLOBAL PROMO VIDEO
+================================================================
+Leave blank. There is no video, and the field is optional.
+
+
+================================================================
+7. FILES TO UPLOAD
+================================================================
+Store icon (128x128)
+    icons/128.png
+
+Screenshots (1280x800, upload all five, in this order)
+    store-assets/screenshots/segue-1.png    the pop-up at the cursor
+    store-assets/screenshots/segue-2.png    the library, filters on
+    store-assets/screenshots/segue-3.png    overuse flagging
+    store-assets/screenshots/segue-4.png    the Signposts bank
+    store-assets/screenshots/segue-5.png    Settings, no key needed
+
+Small promo tile (440x280)
+    store-assets/screenshots/promo-small-440x280.png
+
+Marquee promo tile (1400x560)
+    store-assets/screenshots/promo-marquee-1400x560.png
+
+Every one of these is a 24-bit PNG with no alpha channel, which is what
+the form asks for. The screenshots are ordered so the first one carries
+the listing; the store shows it largest.

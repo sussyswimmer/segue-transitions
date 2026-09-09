@@ -33,7 +33,8 @@ chrome.runtime.onInstalled.addListener(() => {
 
 chrome.runtime.onStartup.addListener(armPanel);
 
-// Ctrl+Shift+Space — ask for suggestions at the cursor without touching the mouse.
+// Alt+T (the suggested_key in the manifest) — ask for suggestions at the cursor
+// without touching the mouse. Chrome lets the user rebind it at chrome://extensions/shortcuts.
 chrome.commands.onCommand.addListener(async (command) => {
   if (command !== 'suggest-here') return;
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });

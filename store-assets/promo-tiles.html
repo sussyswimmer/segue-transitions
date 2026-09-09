@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Segue promo tiles</title>
+    <style>
+      /* Chrome Web Store promo tiles. `?t=small` is 440x280, `?t=marquee` is 1400x560.
+         Both render on an opaque ink ground, so the PNG comes out 24-bit with no alpha. */
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; background: #201e1d; }
+      body {
+        font-family: 'Helvetica Neue', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+        color: #fff; overflow: hidden;
+      }
+      .tile { background: #201e1d; display: flex; overflow: hidden; position: relative; }
+      .sq { background: #ec3013; display: inline-block; flex: none; }
+
+      .lockup { display: flex; align-items: center; gap: 10px; }
+      .lockup img { display: block; }
+      .lockup .word {
+        font-weight: 700; letter-spacing: -0.035em; line-height: 1;
+        display: flex; align-items: baseline; gap: 3px;
+      }
+
+      /* ---- small: 440x280 ---- */
+      .small {
+        width: 440px; height: 280px; flex-direction: column;
+        justify-content: space-between; padding: 34px 36px;
+      }
+      .small .lockup img { width: 40px; height: 40px; }
+      .small .lockup .word { font-size: 38px; }
+      .small .lockup .word .sq { width: 8px; height: 8px; }
+      .small h2 {
+        margin: 0; font-size: 21px; font-weight: 600; line-height: 1.22;
+        letter-spacing: -0.025em; color: #fff; max-width: 15ch;
+      }
+      .small p {
+        margin: 10px 0 0; font-size: 13px; line-height: 1.4; color: #b4aeab;
+        letter-spacing: -0.005em;
+      }
+      .rule { height: 3px; width: 54px; background: #ec3013; flex: none; }
+
+      /* ---- marquee: 1400x560 ---- */
+      .marquee { width: 1400px; height: 560px; align-items: stretch; }
+      .marquee .left {
+        flex: 1; padding: 62px 0 62px 76px; display: flex;
+        flex-direction: column; justify-content: space-between; min-width: 0;
+      }
+      .marquee .lockup img { width: 40px; height: 40px; }
+      .marquee .lockup .word { font-size: 36px; }
+      .marquee .lockup .word .sq { width: 8px; height: 8px; }
+      .marquee h2 {
+        margin: 0; font-size: 60px; font-weight: 700; line-height: 1.02;
+        letter-spacing: -0.04em; max-width: 15ch;
+      }
+      .marquee h2 .sq { width: 14px; height: 14px; margin-left: 4px; }
+      .marquee p {
+        margin: 22px 0 0; font-size: 19px; line-height: 1.45; color: #b4aeab;
+        max-width: 46ch; letter-spacing: -0.005em;
+      }
+      .marquee .right {
+        width: 470px; flex: none; position: relative;
+        display: flex; align-items: center; justify-content: center;
+      }
+
+      /* The inline pop-up, as content.js draws it. */
+      .pop {
+        width: 316px; background: #fff; color: #201e1d;
+        border: 1px solid #dedad8; border-top: 3px solid #ec3013;
+        box-shadow: 0 18px 50px rgba(0,0,0,.45);
+        font-size: 14px; line-height: 1.45; overflow: hidden;
+      }
+      .pop .head { padding: 10px 14px 9px; border-bottom: 1px solid #dedad8; font-size: 12px; color: #6f6a67; }
+      .pop .rel { font-weight: 700; color: #c9240a; letter-spacing: .12em; text-transform: uppercase; margin-right: 7px; }
+      .pop .opts { padding: 4px; }
+      .pop .opt { padding: 8px 10px; }
+      .pop .opt.on { background: #f5f3f2; box-shadow: inset 3px 0 0 #ec3013; }
+      .pop .p { font-weight: 600; letter-spacing: -.01em; }
+      .pop .w { color: #6f6a67; font-size: 12.5px; }
+      .pop .foot { padding: 8px 14px 10px; border-top: 1px solid #dedad8; font-size: 11.5px; color: #6f6a67; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      const T = new URLSearchParams(location.search).get('t') || 'small';
+
+      const LOCKUP =
+        '<div class="lockup"><img src="../icons/128.png" alt="" />' +
+        '<span class="word">Segue<i class="sq"></i></span></div>';
+
+      const POP =
+        '<div class="pop">' +
+        '<div class="head"><span class="rel">effect</span>draw out what this makes possible</div>' +
+        '<div class="opts">' +
+        '<div class="opt on"><div class="p">As a result,</div><div class="w">plainest link to the consequence</div></div>' +
+        '<div class="opt"><div class="p">Consequently,</div><div class="w">formal, slightly heavier</div></div>' +
+        '<div class="opt"><div class="p">Which is why</div><div class="w">keeps the sentence running on</div></div>' +
+        '<div class="opt"><div class="p">The upshot is</div><div class="w">conversational, sums up</div></div>' +
+        '</div>' +
+        '<div class="foot">↑↓ pick · Enter insert · Esc dismiss</div>' +
+        '</div>';
+
+      const TILES = {
+        small:
+          '<div class="tile small">' + LOCKUP +
+          '<div><div class="rule"></div>' +
+          '<h2>Transitions that fit what you just wrote</h2>' +
+          '<p>1,207 of them, filed by the move they make.</p></div>' +
+          '</div>',
+        marquee:
+          '<div class="tile marquee">' +
+          '<div class="left">' + LOCKUP +
+          '<div><h2>Transitions that fit what you just wrote<i class="sq"></i></h2>' +
+          '<p>Finish a sentence and the list opens at your cursor, ranked for the ' +
+          'logical move your next one has to make. 1,207 more in the library, offline.</p></div>' +
+          '</div>' +
+          '<div class="right">' + POP + '</div>' +
+          '</div>'
+      };
+
+      document.getElementById('root').innerHTML = TILES[T] || TILES.small;
+    </script>
+  </body>
+</html>
