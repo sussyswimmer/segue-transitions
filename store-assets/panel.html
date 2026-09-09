@@ -8,6 +8,7 @@
   <body>
     <script>
       // Load the real panel markup, then boot it against the stub chrome.* surface.
+      const shot = new URLSearchParams(location.search).get('shot') || '1';
       fetch('../sidepanel.html')
         .then((r) => r.text())
         .then((html) => {
@@ -18,7 +19,7 @@
             img.src = '../' + img.getAttribute('src');
           });
           const shim = document.createElement('script');
-          shim.src = 'preview-shim.js';
+          shim.src = 'preview-shim.js?shot=' + encodeURIComponent(shot);
           shim.onload = () => {
             const panel = document.createElement('script');
             panel.type = 'module';

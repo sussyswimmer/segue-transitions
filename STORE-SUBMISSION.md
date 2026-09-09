@@ -137,7 +137,7 @@ Read these yourself before ticking — you are the one certifying them.
 | Asset | Requirement | Status |
 | --- | --- | --- |
 | Icon | 128×128 PNG | ✅ `icons/128.png` |
-| Screenshot | 1280×800 or 640×400, at least one, up to five | ✅ in `store-assets/` |
+| Screenshot | 1280×800 or 640×400, at least one, up to five | ✅ five, in `store-assets/screenshots/` |
 | Small promo tile | 440×280 | Optional |
 | Privacy policy URL | Publicly reachable | ✅ https://sussyswimmer.github.io/segue-transitions/ |
 

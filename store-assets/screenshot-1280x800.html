@@ -4,45 +4,61 @@
     <meta charset="utf-8" />
     <title>Segue store shot</title>
     <style>
+      /* Chrome Web Store screenshots, exactly 1280x800. `?n=1..5` picks the scene.
+         The panel on the right is the real thing, loaded from sidepanel.css/.js —
+         only the host document and the inline popup are mocked. */
       html, body { margin: 0; padding: 0; width: 1280px; height: 800px; overflow: hidden; }
       body {
-        display: flex;
-        font-family: 'Google Sans', Roboto, 'Segoe UI', Arial, sans-serif;
+        font-family: 'Helvetica Neue', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
         background: #f8f9fa;
+        display: flex; flex-direction: column;
       }
 
+      /* The band carries the mark's colours and states what the shot shows. */
+      .band {
+        height: 132px; flex: none; background: #201e1d; color: #fff;
+        padding: 0 48px; display: flex; flex-direction: column; justify-content: center;
+      }
+      .band h1 {
+        margin: 0; font-size: 33px; font-weight: 700; letter-spacing: -0.035em;
+        line-height: 1.05; display: flex; align-items: baseline; gap: 4px;
+      }
+      .band h1 i { width: 9px; height: 9px; background: #ec3013; display: inline-block; flex: none; }
+      .band p { margin: 11px 0 0; font-size: 15.5px; color: #b4aeab; letter-spacing: -0.005em; }
+
+      .scene { flex: 1; display: flex; min-height: 0; }
+
       /* Left: a document being written in */
-      .stage { flex: 1; position: relative; display: flex; flex-direction: column; }
+      .stage { flex: 1; position: relative; display: flex; flex-direction: column; min-width: 0; }
       .chrome-bar {
-        height: 46px; background: #fff; border-bottom: 1px solid #e0e3e8;
+        height: 44px; flex: none; background: #fff; border-bottom: 1px solid #e0e3e8;
         display: flex; align-items: center; gap: 10px; padding: 0 18px;
         font-size: 12.5px; color: #5f6368;
       }
       .dot { width: 11px; height: 11px; border-radius: 50%; }
       .paper {
-        margin: 34px auto 0; width: 620px; align-self: center; background: #fff;
+        margin: 30px auto 0; width: 620px; align-self: center; background: #fff;
         border: 1px solid #e0e3e8; border-radius: 3px;
-        padding: 54px 62px; height: 704px;
-        box-shadow: 0 1px 3px rgba(60,64,67,.12);
+        padding: 44px 54px; height: 100%;
       }
-      .paper h2 { margin: 0 0 18px; font-size: 19px; font-weight: 500; color: #1f1f1f; }
+      .paper h2 { margin: 0 0 16px; font-size: 19px; font-weight: 500; color: #1f1f1f; }
       .paper p {
         margin: 0; font-family: Arial, sans-serif; font-size: 14.5px;
         line-height: 1.95; color: #202124;
       }
+      .paper p + p { margin-top: 17px; }
       .caret {
         display: inline-block; width: 1.5px; height: 16px; background: #1f1f1f;
         vertical-align: -3px; margin-left: 1px;
       }
+      mark { background: #fde7e2; color: inherit; padding: 0 1px; }
 
-      /* The inline popup, exactly as the extension renders it. Keep in step with
-         POPUP_CSS in content.js. */
+      /* The inline popup, as content.js renders it. Keep in step with POPUP_CSS. */
       .pop {
-        position: absolute; left: 398px; top: 172px; width: 292px;
+        position: absolute; left: 372px; top: 118px; width: 292px; visibility: hidden;
         background: #fff; color: #201e1d; border: 1px solid #dedad8;
         border-top: 2px solid #ec3013; border-radius: 0;
         box-shadow: 0 6px 24px rgba(32,30,29,.22);
-        font-family: 'Helvetica Neue', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
         font-size: 13px; line-height: 1.45; overflow: hidden;
       }
       .pop .head {
@@ -62,18 +78,15 @@
         padding: 6px 12px 8px; border-top: 1px solid #dedad8;
         font-size: 10.5px; color: #6f6a67;
       }
-      kbd {
-        font: inherit; padding: 0 4px; border: 1px solid #dedad8;
-        border-radius: 0; background: #f5f3f2;
-      }
+      kbd { font: inherit; padding: 0 4px; border: 1px solid #dedad8; border-radius: 0; background: #f5f3f2; }
 
-      /* Right: the real side panel, loaded from the actual source */
+      /* Right: the real side panel */
       .panel-wrap {
-        width: 372px; border-left: 1px solid #dadce0; background: #fff;
+        width: 372px; flex: none; border-left: 1px solid #dadce0; background: #fff;
         display: flex; flex-direction: column;
       }
       .panel-head {
-        height: 46px; border-bottom: 1px solid #e8eaed; display: flex;
+        height: 44px; flex: none; border-bottom: 1px solid #e8eaed; display: flex;
         align-items: center; padding: 0 16px; font-size: 12.5px; color: #5f6368; gap: 8px;
       }
       .panel-head img { width: 16px; height: 16px; display: block; }
@@ -81,53 +94,145 @@
     </style>
   </head>
   <body>
-    <div class="stage">
-      <div class="chrome-bar">
-        <span class="dot" style="background:#ee6a5f"></span>
-        <span class="dot" style="background:#f5bd4f"></span>
-        <span class="dot" style="background:#61c454"></span>
-        <span style="margin-left:12px">Coastal resilience essay — Google Docs</span>
-      </div>
+    <div class="band">
+      <h1><span id="head"></span><i></i></h1>
+      <p id="sub"></p>
+    </div>
 
-      <div class="paper">
-        <h2>Mangroves and the Can Gio shoreline</h2>
-        <p>
-          Coastal mangroves along the Can Gio shoreline hold back roughly a third of the
-          tidal erosion recorded before 2019.<span class="caret"></span>
-        </p>
-      </div>
-
-      <div class="pop">
-        <div class="head"><span class="rel">effect</span>draw out what this makes possible</div>
-        <div class="opts">
-          <div class="opt on">
-            <div class="p">As a result,</div>
-            <div class="w">plainest link to the consequence</div>
-          </div>
-          <div class="opt">
-            <div class="p">Consequently,</div>
-            <div class="w">formal, slightly heavier</div>
-          </div>
-          <div class="opt">
-            <div class="p">Which is why</div>
-            <div class="w">keeps the sentence running on</div>
-          </div>
-          <div class="opt">
-            <div class="p">The upshot is</div>
-            <div class="w">conversational, sums up</div>
-          </div>
-          <div class="opt">
-            <div class="p">It follows that</div>
-            <div class="w">signals a reasoned step</div>
-          </div>
+    <div class="scene">
+      <div class="stage">
+        <div class="chrome-bar">
+          <span class="dot" style="background:#ee6a5f"></span>
+          <span class="dot" style="background:#f5bd4f"></span>
+          <span class="dot" style="background:#61c454"></span>
+          <span style="margin-left:12px" id="tab">Coastal resilience essay — Google Docs</span>
         </div>
-        <div class="foot">↑↓ pick · <kbd>Enter</kbd> insert · <kbd>Esc</kbd> dismiss</div>
+
+        <div class="paper">
+          <h2 id="doc-title">Mangroves and the Can Gio shoreline</h2>
+          <div id="doc-body"></div>
+        </div>
+
+        <div class="pop" id="pop" hidden>
+          <div class="head"><span class="rel">effect</span>draw out what this makes possible</div>
+          <div class="opts">
+            <div class="opt on"><div class="p">As a result,</div><div class="w">plainest link to the consequence</div></div>
+            <div class="opt"><div class="p">Consequently,</div><div class="w">formal, slightly heavier</div></div>
+            <div class="opt"><div class="p">Which is why</div><div class="w">keeps the sentence running on</div></div>
+            <div class="opt"><div class="p">The upshot is</div><div class="w">conversational, sums up</div></div>
+            <div class="opt"><div class="p">It follows that</div><div class="w">signals a reasoned step</div></div>
+          </div>
+          <div class="foot">↑↓ pick · <kbd>Enter</kbd> insert · <kbd>Esc</kbd> dismiss</div>
+        </div>
+      </div>
+
+      <div class="panel-wrap">
+        <div class="panel-head"><img src="../icons/16.png" alt="" />Segue</div>
+        <iframe id="panel" title="Segue side panel"></iframe>
       </div>
     </div>
 
-    <div class="panel-wrap">
-      <div class="panel-head"><img src="../icons/16.png" alt="" />Segue</div>
-      <iframe src="panel.html" title="Segue side panel"></iframe>
-    </div>
+    <script>
+      const N = Number(new URLSearchParams(location.search).get('n') || 1);
+
+      const LEAD_MANGROVE =
+        'The 2019 shoreline survey was the first to measure erosion at district scale. ' +
+        'Its findings have been contested since, largely over what the baseline ought to be.';
+      const FINAL_MANGROVE =
+        'Coastal mangroves along the Can Gio shoreline hold back roughly a third of the ' +
+        'tidal erosion recorded before 2019.<span class="caret"></span>';
+
+      const SCENES = {
+        1: {
+          head: 'Finish a sentence, get the transition that fits it',
+          sub: 'The list opens at your cursor, in any text box on any site. Arrow keys to pick, Enter to insert.',
+          title: 'Mangroves and the Can Gio shoreline',
+          lead: LEAD_MANGROVE,
+          body: FINAL_MANGROVE,
+          pop: true
+        },
+        2: {
+          head: '1,207 transitions, filed by the move they make',
+          sub: 'Twenty-four relations, each with a plain tier and a rare one. No key and no network needed to browse it.',
+          title: 'Mangroves and the Can Gio shoreline',
+          lead: LEAD_MANGROVE,
+          body: FINAL_MANGROVE
+        },
+        3: {
+          head: 'It flags what you are already leaning on',
+          sub: 'Three “however”s in one passage. Segue strikes them out of the library and stops offering them.',
+          title: 'The eastern bank review',
+          body: 'The council promised a review in 2019. <mark>However</mark>, the survey was never commissioned. <mark>Moreover</mark>, the budget line vanished the following spring. <mark>However</mark>, residents kept filing reports of flooding on the eastern bank. <mark>Moreover</mark>, two councillors raised it at committee. <mark>However</mark>, nothing ever reached the agenda.<span class="caret"></span>'
+        },
+        4: {
+          head: 'A second bank for the moves an essay makes',
+          sub: 'Stating the claim, raising a counterargument, answering it, hedging, naming the stakes, closing.',
+          title: 'Reading the 2019 survey',
+          lead:
+            'Two readings of the survey have circulated since publication. They differ less about ' +
+            'the numbers than about what the numbers are evidence of.',
+          body: 'Rahman reads the 2019 survey as evidence that the planting scheme worked. The data will not carry that weight.<span class="caret"></span>'
+        },
+        5: {
+          head: 'Nothing to set up, and a switch to stop the network',
+          sub: 'Suggestions work the moment you install it. Untick one box and the library runs entirely offline.',
+          title: 'Mangroves and the Can Gio shoreline',
+          lead: LEAD_MANGROVE,
+          body: FINAL_MANGROVE
+        }
+      };
+
+      const s = SCENES[N] || SCENES[1];
+      document.getElementById('head').textContent = s.head;
+      document.getElementById('sub').textContent = s.sub;
+      document.getElementById('doc-title').textContent = s.title;
+      document.getElementById('doc-body').innerHTML =
+        (s.lead ? '<p>' + s.lead + '</p>' : '') + '<p>' + s.body + '</p>';
+
+      // Anchor the popup under the caret, the way content.js does against the real one.
+      const pop = document.getElementById('pop');
+      pop.hidden = !s.pop;
+      if (s.pop) {
+        const caret = document.querySelector('.caret').getBoundingClientRect();
+        const stage = document.querySelector('.stage').getBoundingClientRect();
+        pop.style.left = Math.round(caret.left - stage.left - 6) + 'px';
+        pop.style.top = Math.round(caret.bottom - stage.top + 8) + 'px';
+        pop.style.visibility = 'visible';
+      }
+
+      const frame = document.getElementById('panel');
+      frame.src = 'panel.html?shot=' + N;
+
+      // Drive the real panel into the state this shot is about.
+      frame.addEventListener('load', () => {
+        setTimeout(() => {
+          const d = frame.contentDocument;
+          if (!d) return;
+          const click = (sel) => d.querySelector(sel)?.click();
+          const scrollTo = (sel) => d.querySelector(sel)?.scrollIntoView({ block: 'start' });
+
+          if (N === 2) {
+            click('.filters .filter:nth-child(3)');
+            click('.filters .filter:nth-child(7)');
+            setTimeout(() => scrollTo('.library'), 120);
+          }
+          if (N === 3) {
+            // The overuse strip sits below the suggestions; bring it into frame
+            // alongside the struck-out chips it explains.
+            scrollTo('#overuse');
+          }
+          if (N === 4) {
+            click('.bank .seg[data-bank="signposts"]');
+            setTimeout(() => scrollTo('.library'), 120);
+          }
+          if (N === 5) {
+            d.getElementById('settings').open = true;
+            // Depict the default: no personal key, running on the built-in one.
+            d.getElementById('api-key').value = '';
+            setTimeout(() => scrollTo('.foot'), 120);
+          }
+        }, 900);
+      });
+    </script>
   </body>
 </html>
