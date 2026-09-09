@@ -63,7 +63,7 @@ matters. Uninstalling Segue deletes everything above.
 | Permission | Reason |
 | --- | --- |
 | Access to the sites you visit | To read the text box you are typing in and insert your chosen phrase at the cursor. Text is only read from the field you are actively editing. |
-| `storage` | To keep your key and preferences on your device |
+| `storage` | To keep your preferences, and a personal key if you entered one, on your device |
 | `tabs` | So the side panel can address the tab you are writing in |
 | `scripting` | To restore Segue in already-open tabs after it updates, without you refreshing them |
 | `clipboardWrite` | Fallback: if a page refuses direct insertion, the phrase is copied so you can paste it |
