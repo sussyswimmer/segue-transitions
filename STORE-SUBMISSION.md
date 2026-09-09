@@ -102,7 +102,8 @@ Segue helps you write by suggesting transition words and phrases that fit the se
 you have just finished, and inserting the one you choose at your cursor.
 ```
 
-**Permission justifications** — paste each into its field:
+**Permission justifications** — the full, field-ready text is in
+`store-assets/PERMISSIONS.txt`. Summarised:
 
 - **`storage`** — Stores the user's display preferences (theme, register, which phrase tiers are expanded, whether online suggestions are on) and an optional personal DeepSeek API key on their own device. Nothing is stored remotely.
 - **`tabs`** — The side panel runs in a separate document from the page. It needs the active tab's id to ask that specific tab for the text around the cursor and to insert the chosen phrase back into it.
@@ -111,7 +112,11 @@ you have just finished, and inserting the one you choose at your cursor.
 - **`sidePanel`** — The extension's main interface is a Chrome side panel.
 - **Host permission `https://api.deepseek.com/*`** — The only network destination. The sentence being written is sent there to generate suggestions, authenticated with the key built into the extension, or a personal key if the user entered one.
 - **Content scripts on all sites** — Segue must work in whatever text box the user is writing in, which can be on any website. It only reads the field currently being edited, only reads the text immediately before the cursor, and sends that text nowhere if the user has switched online suggestions off.
-- **Remote code** — No. All code is contained in the package.
+- **Remote code** — **No.** All code ships inside the package. Verified: no `eval`, no
+  `new Function`, no dynamic `import()` of a URL, and no remote script or stylesheet tag in
+  any extension page. Calling the DeepSeek API is not remote code — the response is JSON,
+  parsed as data and never executed. Answering "yes" here forces a deeper review and is
+  inaccurate.
 
 **Data usage disclosures** — tick these, then tick all three certification boxes:
 

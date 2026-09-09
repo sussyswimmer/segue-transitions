@@ -1,0 +1,113 @@
+SEGUE — PRIVACY PRACTICES TAB
+Copy each block between the dashed lines. Every field caps at 1,000 characters.
+
+
+################################################################
+FIRST, FIX THE REMOTE CODE ANSWER
+################################################################
+
+Your form currently has "Yes, I am using remote code" selected.
+That is wrong, and it is the single costliest wrong answer on this
+page: it forces a deeper review and, since it is inaccurate, invites
+a rejection.
+
+Change it to:  No, I am not using remote code.
+
+"Remote code" means JavaScript or WebAssembly that is fetched from
+outside the package and then executed — a <script> tag pointing at a
+CDN, eval() of a downloaded string, a remotely hosted module. Segue
+does none of that. I checked the whole codebase: no eval, no
+new Function, no dynamic import of a URL, and no remote script or
+stylesheet tag in any extension page. Every line that runs ships
+inside the zip.
+
+Calling the DeepSeek API is not remote code. Segue sends text and
+receives JSON, which it parses as data and never executes. Fetching
+data is a host permission question, which the form asks separately
+and which is answered below.
+
+When you select "No", the Justification box under it disappears.
+
+
+================================================================
+sidePanel justification          (488 characters)
+================================================================
+----------------------------------------------------------------
+Segue's entire user interface is a Chrome side panel. The panel shows the sentence Segue is reading, the suggestions fitted to it, and the browsable library of transition phrases. It has to sit alongside the page the user is writing in rather than in a toolbar popup, because a popup closes the moment focus returns to the text box, and the user needs to read the options while the cursor stays in the document. This permission registers and opens that panel. It is used for nothing else.
+----------------------------------------------------------------
+
+
+================================================================
+storage justification            (646 characters)
+================================================================
+----------------------------------------------------------------
+chrome.storage.local holds the user's own settings on their own device: the light or dark theme, the register setting (plain, balanced or formal), which rare phrase tiers they have expanded, whether the pop-up appears when they finish a sentence, whether the panel refreshes as they type, and whether Segue may contact DeepSeek at all. It also holds a personal DeepSeek API key if the user chooses to enter one instead of using the key built into the extension. Nothing is written to a remote server. None of it is transmitted anywhere, except that personal API key, which is sent only to api.deepseek.com to authenticate the user's own requests.
+----------------------------------------------------------------
+
+
+================================================================
+tabs justification               (553 characters)
+================================================================
+----------------------------------------------------------------
+The side panel is a separate document from the page being written in, so it cannot reach that page directly. Segue uses chrome.tabs.query to identify the tab that is currently active, and chrome.tabs.sendMessage to ask that one tab's content script for the text immediately before the cursor, and to insert the chosen phrase back at the cursor. The permission is used only to address the active tab. Segue does not read tab URLs for tracking, does not enumerate open tabs to build any kind of history, and does not touch tabs the user is not writing in.
+----------------------------------------------------------------
+
+
+================================================================
+scripting justification          (531 characters)
+================================================================
+----------------------------------------------------------------
+When the extension is installed or updated, Chrome disconnects the content scripts already running in tabs that were open at the time. Without this permission the user would have to reload every open tab by hand before Segue worked in it again. Segue calls chrome.scripting.executeScript for exactly one purpose: to re-inject its own content script, content.js, which already ships inside the package. It never injects code fetched from a remote source, and never executes anything that was not reviewed as part of this submission.
+----------------------------------------------------------------
+
+
+================================================================
+clipboardWrite justification     (559 characters)
+================================================================
+----------------------------------------------------------------
+Some editors refuse programmatic insertion at the cursor. Google Docs is the main case: it renders the document to a canvas and rejects ordinary insertion calls, so the insertion path there is best-effort. When the user picks a phrase in the side panel, Segue writes that phrase to the clipboard first, while the click is still a fresh user gesture, so that if insertion fails the user can paste it rather than have the click silently do nothing. The only thing ever written is the short transition phrase the user just chose. Segue never reads the clipboard.
+----------------------------------------------------------------
+
+
+================================================================
+Host permission justification    (983 characters)
+================================================================
+----------------------------------------------------------------
+Segue requests two kinds of host access, for two separate reasons.
+
+https://api.deepseek.com/* is the only server Segue ever contacts. When the user finishes a sentence, up to the last 900 characters before the cursor are sent there so a fitting transition can be suggested. Nothing else is transmitted. A switch in Settings turns this off entirely, after which the extension makes no network requests at all and the built-in phrase library still works.
+
+Content scripts match all sites because Segue is a writing aid and cannot know in advance where the user will write. It has to work in whatever text box holds the cursor: Gmail, Google Docs, Notion, Canvas, Overleaf, a university submission form, an ordinary comment box. The content script reads only the field currently being edited, and only the text immediately before the cursor. It does not read page content at large, does not read other fields, does not collect URLs, and sends nothing when suggestions are switched off.
+----------------------------------------------------------------
+
+
+================================================================
+SINGLE PURPOSE  (asked higher up the same tab)
+================================================================
+----------------------------------------------------------------
+Segue helps you write by suggesting transition words and phrases that fit the sentence you have just finished, and inserting the one you choose at your cursor.
+----------------------------------------------------------------
+
+
+================================================================
+DATA USAGE — tick these, then all three certifications
+================================================================
+  TICK   Personal communications
+         The text being written is sent to DeepSeek for suggestions.
+
+  TICK   Authentication information
+         An optional personal API key is stored locally and sent to
+         DeepSeek.
+
+  LEAVE UNTICKED
+         Personally identifiable information — never requested.
+         Health, financial, location, web history — never touched.
+         User activity — no clicks, analytics or behaviour recorded.
+         Website content — only the field being edited is read.
+
+Then confirm all three certifications: the data is not sold to third
+parties, is not used for any purpose unrelated to the single purpose
+above, and is not used to determine creditworthiness or for lending.
+
+Read those three yourself before ticking. You are the one certifying
+them, not me.
