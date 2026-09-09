@@ -54,7 +54,7 @@ Press Alt+T to ask for suggestions at any moment.
 
 A STANDING LIBRARY THAT WORKS OFFLINE
 
-Underneath sits a browsable library of over 500 phrases across 24 rhetorical relations —
+Underneath sits a browsable library of over 1,200 phrases across 24 rhetorical relations —
 Addition, Contrast, Concession, Refutation, Cause, Effect, Purpose, Condition, Exception,
 Alternative, Sequence, Time, Emphasis, Example, Evidence, Clarification, Comparison,
 Generalisation, Qualification, Topic shift, Reference back, Digression, Conclusion and

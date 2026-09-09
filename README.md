@@ -2,8 +2,9 @@
 
 A Chrome side-panel extension. It watches whichever text box you're writing in, sends the tail
 of your passage to DeepSeek, and offers transition words that fit the logical move your next
-sentence needs to make. Underneath sits a standing library of ~520 phrases across 24 relations,
-which works with no key and no network.
+sentence needs to make. Underneath sits a standing library of ~1,200 transitions across 24
+relations and ~390 signposting phrases across 16 essay moves, which works with no key and no
+network.
 
 Styled to match Google Docs — Material 3 surfaces, Google Sans, Docs blue. Light by default;
 Dark and Match system are in Settings.
@@ -73,9 +74,11 @@ padded is the same transition four paragraphs running.
 ## Two banks
 
 **Transitions** connects one sentence to the next. **Signposts** covers the other moves an essay
-makes: stating the claim, mapping what follows, bringing in a source, raising a counterargument
-and answering it, hedging, defining a term, naming the stakes, closing a paragraph or the essay.
-The switch sits at the top of the library; each bank has its own filters and rare tiers.
+makes: stating the claim, mapping what follows, posing a question, bringing in a source and
+summarising it, raising a counterargument and answering it, weighing the evidence, hedging,
+defining a term, refining the claim, naming the stakes, directing the reader, acknowledging
+limits, closing a paragraph or the essay. The switch sits at the top of the library; each bank
+has its own filters and rare tiers.
 
 ## Controls
 
@@ -95,14 +98,18 @@ with spacing adjusted to what's on either side of the caret.
 
 ## The library
 
-24 relations, each with a common tier and a rare/formal tier:
+24 relations, each with a common tier and a rare/formal tier. The common tier mixes the handbook
+connectives with everyday sayings that do the same job (*On the flip side*, *The long and short
+of it is*, *Nine times out of ten*, *At the end of the day*):
 
 Addition · Similarity · Contrast · Concession · Refutation · Cause · Effect · Purpose · Condition ·
 Exception · Alternative · Sequence · Time · Emphasis · Example · Evidence · Clarification ·
 Comparison · Generalisation · Qualification · Topic shift · Reference back · Digression · Conclusion
 
 Rare tiers carry the things you won't get from a school handout: *A fortiori*, *Mutatis mutandis*,
-*Pace*, *Inasmuch as*, *En passant*, *Whereupon*, *In fine*, *Summa summarum*.
+*Pace*, *Inasmuch as*, *En passant*, *Whereupon*, *In fine*, *Summa summarum*, *Pari passu*,
+*Nathless*, *Arguendo*, *Non sequitur*, *Seriatim*, *Heretofore*, *Nota bene*, *Inter alia*,
+*Scilicet*, *Cum grano salis*, *Obiter dictum*, *Q.E.D.*
 
 ## Files
 
@@ -113,6 +120,7 @@ Rare tiers carry the things you won't get from a school handout: *A fortiori*, *
 | `content.js` | Tracks the focused field, extracts caret context, inserts at the caret, Docs path |
 | `sidepanel.html/.css/.js` | The panel UI, controls, and the DeepSeek call |
 | `transitions.js` | The standing library — 24 relations, common + rare tiers |
+| `signposts.js` | The signposting bank — 16 essay moves, common + rare tiers |
 
 ## Cost
 
