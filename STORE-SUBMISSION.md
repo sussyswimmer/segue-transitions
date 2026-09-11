@@ -148,6 +148,28 @@ Read these yourself before ticking — you are the one certifying them.
 
 ---
 
+## Rejected once, and why
+
+The first submission was rejected for keyword spam. The flagged string was the list of
+third-party products under WHERE IT WORKS: nine brand names in a row reads as keyword
+stuffing regardless of intent, and naming other companies' products in a description is
+the pattern the policy exists to catch.
+
+The description now describes surfaces by what they are — a webmail compose window, a
+course submission page, a comment box — and names no third-party product except DeepSeek,
+which has to be named because user text is sent there. The other lists in the description
+were thinned at the same time, since the whole page read as list-heavy and the relation
+enumeration ran to 24 terms.
+
+The mocked browser window in the screenshots also carried a product name in its title bar.
+The policy covers screenshots, so that was removed and all five re-rendered.
+
+Permission justifications still name a real product once, in the clipboardWrite field,
+because that is the actual technical reason the permission exists and a reviewer checking
+accuracy needs the specific. Justifications are not the surface the policy governs.
+
+---
+
 ## Expect a slower review
 
 Two things reliably attract a closer look, so submit with them in mind rather than being

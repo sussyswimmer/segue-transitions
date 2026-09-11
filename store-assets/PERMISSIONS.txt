@@ -70,14 +70,14 @@ Some editors refuse programmatic insertion at the cursor. Google Docs is the mai
 
 
 ================================================================
-Host permission justification    (983 characters)
+Host permission justification    (985 characters)
 ================================================================
 ----------------------------------------------------------------
 Segue requests two kinds of host access, for two separate reasons.
 
 https://api.deepseek.com/* is the only server Segue ever contacts. When the user finishes a sentence, up to the last 900 characters before the cursor are sent there so a fitting transition can be suggested. Nothing else is transmitted. A switch in Settings turns this off entirely, after which the extension makes no network requests at all and the built-in phrase library still works.
 
-Content scripts match all sites because Segue is a writing aid and cannot know in advance where the user will write. It has to work in whatever text box holds the cursor: Gmail, Google Docs, Notion, Canvas, Overleaf, a university submission form, an ordinary comment box. The content script reads only the field currently being edited, and only the text immediately before the cursor. It does not read page content at large, does not read other fields, does not collect URLs, and sends nothing when suggestions are switched off.
+Content scripts match all sites because Segue is a writing aid and cannot know in advance where the user will write. It has to work in whatever text box holds the cursor: a webmail compose window, a collaborative document, a course submission page, an ordinary comment box. The content script reads only the field currently being edited, and only the text immediately before the cursor. It does not read page content at large, does not read other fields, does not collect URLs, and sends nothing when suggestions are switched off.
 ----------------------------------------------------------------
 
 

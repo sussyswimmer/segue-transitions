@@ -19,7 +19,7 @@ Reads the sentence you just wrote and suggests the transition that fits what com
 
 
 ================================================================
-3. DESCRIPTION  (16,000 char limit — this is 3,553)
+3. DESCRIPTION  (16,000 char limit — this is 3316)
 ================================================================
 ----------------------------------------------------------------
 Segue watches the text box you are writing in and, the moment you finish a sentence, offers the transition words that actually fit what comes next — not a generic list, but options chosen for the logical move your next sentence needs to make.
@@ -30,15 +30,15 @@ Type a full stop and a small list opens at your cursor with five ranked options,
 
 Press Alt+T to ask for suggestions at any moment. Chrome lets you rebind that at chrome://extensions/shortcuts.
 
-The trigger is deliberately picky. It ignores decimals like 3.14, list numbers, abbreviations such as e.g. and Dr., ellipses, and sentences under 30 characters, and it fires once per full stop rather than on every keystroke after it. Turn it off in Settings if you would rather drive the panel by hand.
+The trigger is deliberately picky. It ignores decimals, list numbers, abbreviations, ellipses, and sentences under 30 characters, and it fires once per full stop rather than on every keystroke after it. Turn it off in Settings if you would rather drive the panel by hand.
 
 A STANDING LIBRARY THAT WORKS OFFLINE
 
-Underneath sits a browsable library of 1,207 phrases across 24 rhetorical relations: Addition, Similarity, Contrast, Concession, Refutation, Cause, Effect, Purpose, Condition, Exception, Alternative, Sequence, Time, Emphasis, Example, Evidence, Clarification, Comparison, Generalisation, Qualification, Topic shift, Reference back, Digression and Conclusion.
+Underneath sits a browsable library of 1,207 phrases, filed under 24 rhetorical relations — addition, contrast, concession, refutation, cause, effect, condition, emphasis, evidence, qualification and conclusion among them.
 
-Every relation carries two tiers. The common tier mixes the handbook connectives with the sayings that do the same work — On the flip side, At the end of the day, Nine times out of ten, The long and short of it is. The rare tier carries what a school handout will not give you: A fortiori, Mutatis mutandis, Pari passu, Inasmuch as, Be that as it may, Seriatim, Nota bene, Obiter dictum, In fine. Open the rare tier for Contrast without dragging Sequence along with it.
+Every relation carries two tiers. The common tier mixes the handbook connectives with the everyday sayings that do the same work, like "on the flip side" or "the long and short of it is". The rare tier carries what a school handout will not give you: a fortiori, mutatis mutandis, inasmuch as, be that as it may, in fine. You can open the rare tier for one relation without opening it everywhere.
 
-A second bank of 387 phrases covers the moves an essay makes beyond joining two sentences: stating the claim, mapping what follows, posing a question, bringing in a source and summarising it, raising a counterargument and answering it, weighing the evidence, hedging, defining a term, refining the claim, naming the stakes, directing the reader, acknowledging limits, closing a paragraph and closing the essay.
+A second bank of 387 phrases covers the moves an essay makes beyond joining two sentences: stating a claim, raising a counterargument and answering it, hedging, naming the stakes, and closing a paragraph or the essay itself.
 
 The library needs no API key and no network.
 
@@ -48,7 +48,9 @@ Segue counts the connectives your passage already leans on. Anything used twice 
 
 WHERE IT WORKS
 
-Any ordinary text box: Gmail, Notion, Slack, Canvas, Overleaf, Substack, WordPress, forums, forms. Google Docs is supported too, which takes special handling — Docs draws your text on a canvas rather than as page text, so Segue follows your sentence through Docs' own input path and inserts the same way.
+Segue works in ordinary text boxes and rich text editors across the web: webmail compose windows, note-taking apps, discussion forums, course submission pages, academic writing tools, comment boxes. Wherever the cursor is, Segue reads the sentence you have just finished.
+
+Document editors that paint your text to a canvas, rather than laying it out as page text, need special handling. Segue handles them: it follows your sentence through the editor's own input path and inserts the same way.
 
 NO ACCOUNT NEEDED
 
